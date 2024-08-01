@@ -7,7 +7,7 @@ import AuthStackNavigator from "./Authentication/AuthStackNavigator";
 
 const Stack = createNativeStackNavigator();
 const RootNavigation = () => {
-  const user = false; // TODO: check if user is logged in
+  const user = true; // TODO: check if user is logged in
   return (
     <NavigationContainer>
       <Stack.Navigator>
