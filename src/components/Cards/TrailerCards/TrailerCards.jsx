@@ -7,7 +7,7 @@ const TrailerCards = ({ imageUrl, title }) => {
     <View style={styles.trailerMoviesCardContainer}>
       <View>
         <TouchableOpacity>
-          <Image style={styles.imageCard} source={imageUrl} />
+          <Image style={styles.imageCard} source={{ uri: imageUrl }} />
         </TouchableOpacity>
         <View style={styles.movieTitleContainer}>
           <View>

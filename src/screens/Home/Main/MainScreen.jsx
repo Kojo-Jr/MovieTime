@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import {
@@ -7,18 +8,77 @@ import {
 } from "@expo/vector-icons";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { FlashList } from "@shopify/flash-list";
-import { popularMovieData, trailerData } from "../../../../mockData/movies";
+import { trailerData } from "../../../../mockData/movies";
 import {
   Carousel,
   PopularMovieCards,
-  TrailerCards
+  TrailerCards,
+  TopRatedCards
 } from "../../../../src/components/Cards";
 import {
   NavigationHeader,
   MiniHeader
 } from "../../../../src/components/Headers";
+import {
+  fetchRequestPopular,
+  fetchRequestTopRated,
+  fetchRequestUpcoming,
+  fetchRequestNowPlaying,
+  fetchRequestHorror,
+  fetchRequestComedy,
+  fetchRequestAction,
+  fetchRequestDrama,
+  fetchRequestSciFi,
+  fetchRequestTrailer,
+  image
+} from "../../../function/api/fetchPost";
 
 const MainScreen = () => {
+  const [popular, setPopular] = useState([]);
+  const [trailer, setTrailer] = useState([]);
+  const [topRated, setTopRated] = useState([]);
+  const [upcoming, setUpcoming] = useState([]);
+  const [nowPlaying, setNowPlaying] = useState([]);
+  const [horror, setHorror] = useState([]);
+  const [comedy, setComedy] = useState([]);
+  const [action, setAction] = useState([]);
+  const [drama, setDrama] = useState([]);
+  const [sciFi, setSciFi] = useState([]);
+
+  useEffect(() => {
+    getMoviesData();
+  }, []);
+
+  const getMoviesData = async () => {
+    try {
+      const popularData = await fetchRequestPopular();
+      const trailerData = await fetchRequestTrailer();
+      const topRatedData = await fetchRequestTopRated();
+      const upcomingData = await fetchRequestUpcoming();
+      const nowPlayingData = await fetchRequestNowPlaying();
+      const horrorData = await fetchRequestHorror();
+      const comedyData = await fetchRequestComedy();
+      const actionData = await fetchRequestAction();
+      const dramaData = await fetchRequestDrama();
+      const sciFiData = await fetchRequestSciFi();
+
+      if (popularData && popularData.results) setPopular(popularData.results);
+      if (trailerData && trailerData.results) setTrailer(trailerData.results);
+      if (topRatedData && topRatedData.results)
+        setTopRated(topRatedData.results);
+      if (upcomingData && upcomingData.results)
+        setUpcoming(upcomingData.results);
+      if (nowPlayingData && nowPlayingData.results)
+        setNowPlaying(nowPlayingData.results);
+      if (horrorData && horrorData.results) setHorror(horrorData.results);
+      if (comedyData && comedyData.results) setComedy(comedyData.results);
+      if (actionData && actionData.results) setAction(actionData.results);
+      if (dramaData && dramaData.results) setDrama(dramaData.results);
+      if (sciFiData && sciFiData.results) setSciFi(sciFiData.results);
+    } catch (error) {
+      console.error("Error fetching movie data: ", error);
+    }
+  };
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -54,12 +114,13 @@ const MainScreen = () => {
                 }}
               >
                 <FlashList
-                  data={popularMovieData}
+                  data={popular}
                   renderItem={({ item }) => (
                     <PopularMovieCards
-                      imageUrl={item.imageUrl}
+                      imageUrl={image(item.poster_path)}
                       movieTitle={item.title}
-                      movieRating={item.rating}
+                      movieRating={item.vote_average}
+                      data={popular}
                     />
                   )}
                   estimatedItemSize={100}
@@ -74,9 +135,12 @@ const MainScreen = () => {
 
               {/* Trailer Cards */}
               <FlashList
-                data={trailerData}
+                data={trailer}
                 renderItem={({ item }) => (
-                  <TrailerCards imageUrl={item.imageUrl} title={item.title} />
+                  <TrailerCards
+                    imageUrl={image(item.poster_path)}
+                    title={item.title}
+                  />
                 )}
                 estimatedItemSize={100}
                 horizontal={true}
@@ -84,8 +148,37 @@ const MainScreen = () => {
               />
 
               {/* New Movies Section */}
-              <MiniHeader title={"New"} navigationText={"View All"} />
-            </View>
+              <MiniHeader title={"Top Rated"} navigationText={"View All"} />
+              <FlashList
+                data={topRated}
+                renderItem={({ item }) => (
+                  <TopRatedCards
+                    imageUrl={image(item.poster_path)}
+                    movieTitle={item.title}
+                    data={popular}
+                  />
+                )}
+                estimatedItemSize={100}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              />
+
+              {/* Coming Soon Section */}
+              <MiniHeader title={"Coming Soon"} navigationText={"View All"} />
+              <FlashList
+                data={upcoming}
+                renderItem={({ item }) => (
+                  <TopRatedCards
+                    imageUrl={image(item.poster_path)}
+                    movieTitle={item.title}
+                    data={popular}
+                  />
+                )}
+                estimatedItemSize={100}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              />
+            </View> //
           );
         }}
         showsVerticalScrollIndicator={false}

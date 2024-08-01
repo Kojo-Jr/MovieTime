@@ -3,7 +3,7 @@ import React from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const PopularMovieCards = ({ imageUrl, movieTitle, movieRating, item }) => {
+const TopRated = ({ imageUrl, movieTitle }) => {
   return (
     <View style={styles.popularMoviesCardContainer}>
       <View>
@@ -14,17 +14,17 @@ const PopularMovieCards = ({ imageUrl, movieTitle, movieRating, item }) => {
           <View>
             <Text style={styles.movieTitle}>{movieTitle}</Text>
           </View>
-          <View style={styles.movieRating}>
+          {/* <View style={styles.movieRating}>
             <MaterialIcons name="star-rate" size={24} color="#FFC145" />
             <Text>{movieRating}</Text>
-          </View>
+          </View> */}
         </View>
       </View>
     </View>
   );
 };
 
-export default PopularMovieCards;
+export default TopRated;
 
 const styles = StyleSheet.create({
   popularMoviesCardContainer: {
@@ -42,9 +42,9 @@ const styles = StyleSheet.create({
   },
   movieTitle: {
     fontWeight: "bold"
-  },
-  movieRating: {
-    flexDirection: "row",
-    alignItems: "center"
   }
+  //   movieRating: {
+  //     flexDirection: "row",
+  //     alignItems: "center"
+  //   }
 });
