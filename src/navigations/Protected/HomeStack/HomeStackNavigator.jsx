@@ -8,6 +8,7 @@ import {
   RecommendationScreen,
   SettingsScreen
 } from "../../../screens/Home";
+import MovieDetailsScreen from "../../../screens/Home/MovieDetails/MovieDetailsScreen";
 
 const HomeStack = createNativeStackNavigator();
 const HomeStackNavigator = () => {
@@ -19,7 +20,7 @@ const HomeStackNavigator = () => {
         options={{ headerShown: false }}
       />
       <HomeStack.Screen
-        name="ProfleScreen"
+        name="ProfileScreen"
         component={ProfileScreen}
         options={{ headerShown: false }}
       />
@@ -41,6 +42,11 @@ const HomeStackNavigator = () => {
       <HomeStack.Screen
         name="SettingsScreen"
         component={SettingsScreen}
+        options={{ headerShown: false }}
+      />
+      <HomeStack.Screen
+        name="MovieDetailScreen"
+        component={MovieDetailsScreen}
         options={{ headerShown: false }}
       />
     </HomeStack.Navigator>

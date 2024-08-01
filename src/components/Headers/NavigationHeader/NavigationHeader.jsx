@@ -11,11 +11,12 @@ const NavigationHeader = ({
   iconComponent,
   iconComponent2,
   iconComponent3,
-  headerTitleText
+  headerTitleText,
+  handleNavigation
 }) => {
   return (
     <View style={styles.headerContainer}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleNavigation}>
         {iconComponent ? iconComponent : <iconComponent />}
         {/* <Ionicons name="menu" size={28} color="black" /> */}
       </TouchableOpacity>

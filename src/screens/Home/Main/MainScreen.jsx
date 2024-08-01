@@ -8,7 +8,6 @@ import {
 } from "@expo/vector-icons";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { FlashList } from "@shopify/flash-list";
-import { trailerData } from "../../../../mockData/movies";
 import {
   Carousel,
   PopularMovieCards,
@@ -32,6 +31,12 @@ import {
   fetchRequestTrailer,
   image
 } from "../../../function/api/fetchPost";
+
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const MainScreen = () => {
   const [popular, setPopular] = useState([]);
@@ -79,6 +84,8 @@ const MainScreen = () => {
       console.error("Error fetching movie data: ", error);
     }
   };
+
+  console.log(popular);
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -108,8 +115,6 @@ const MainScreen = () => {
                 style={{
                   // flexGrow: 1,
                   flexDirection: "row",
-                  // borderColor: "red",
-                  // borderWidth: 1,
                   height: wp("85")
                 }}
               >
@@ -119,7 +124,7 @@ const MainScreen = () => {
                     <PopularMovieCards
                       imageUrl={image(item.poster_path)}
                       movieTitle={item.title}
-                      movieRating={item.vote_average}
+                      vote_average={item.vote_average}
                       data={popular}
                     />
                   )}
@@ -195,8 +200,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: wp("4")
-
-    // alignItems: "center",
-    // justifyContent: "center"
   }
 });
