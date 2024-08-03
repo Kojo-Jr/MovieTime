@@ -1,11 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import {
-  Ionicons,
-  AntDesign,
-  MaterialCommunityIcons
-} from "@expo/vector-icons";
 
 const NavigationHeader = ({
   iconComponent,

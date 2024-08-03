@@ -1,16 +1,16 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 const Carousel = () => {
   return (
     <View style={styles.carousel}>
-      <View>
+      <TouchableOpacity>
         <Image
           style={styles.carouselImageCard}
           source={require("../../../../assets/mockImages/stranger-things.jpg")} //require("./assets/mockImages/stranger-things.jpg")}
         />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

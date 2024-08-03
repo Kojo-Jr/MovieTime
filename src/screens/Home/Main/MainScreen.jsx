@@ -85,7 +85,7 @@ const MainScreen = () => {
     }
   };
 
-  console.log(popular);
+  // console.log(popular);
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
