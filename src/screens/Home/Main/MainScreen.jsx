@@ -148,6 +148,7 @@ const MainScreen = () => {
                       imageUrl={image(item.poster_path)}
                       title={item.title}
                       overview={item.overview}
+                      vote_average={item.vote_average}
                     />
                   )}
                   estimatedItemSize={100}
