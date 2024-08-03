@@ -4,7 +4,12 @@ import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const PopularMovieCards = ({ imageUrl, movieTitle, vote_average }) => {
+const PopularMovieCards = ({
+  imageUrl,
+  movieTitle,
+  vote_average,
+  overview
+}) => {
   const navigation = useNavigation();
 
   return (
@@ -13,7 +18,7 @@ const PopularMovieCards = ({ imageUrl, movieTitle, vote_average }) => {
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("MovieDetailScreen", {
-              params: { imageUrl, movieTitle, vote_average }
+              params: { imageUrl, movieTitle, vote_average, overview }
             })
           }
         >
@@ -28,6 +33,9 @@ const PopularMovieCards = ({ imageUrl, movieTitle, vote_average }) => {
             <Text>{vote_average}</Text>
           </View>
         </View>
+      </View>
+      <View style={{ display: "none" }}>
+        <Text>{overview}</Text>
       </View>
     </View>
   );

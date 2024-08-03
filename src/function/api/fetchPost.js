@@ -9,6 +9,7 @@ const requestPopular = `${apiBaseUrl}/movie/popular?api_key=${apiKey}&language=e
 const requestTopRated = `${apiBaseUrl}/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`;
 const requestUpcoming = `${apiBaseUrl}/movie/upcoming?api_key=${apiKey}&language=en-US&page=1`;
 const requestNowPlaying = `${apiBaseUrl}/movie/now_playing?api_key=${apiKey}&language=en-US&page=1`;
+const requestRecommended = `${apiBaseUrl}/movie/now_playing?api_key=${apiKey}&language=en-US&page=1`;
 const requestHorror = `${apiBaseUrl}/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=27`;
 const requestComedy = `${apiBaseUrl}/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=35`;
 const requestAction = `${apiBaseUrl}/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=28`;
@@ -81,4 +82,8 @@ export const fetchRequestSciFi = () => {
 
 export const fetchRequestTrailer = () => {
   return apiCall(requestTrailer);
+};
+
+export const fetchRequestRecommended = () => {
+  return apiCall(requestRecommended);
 };

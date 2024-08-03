@@ -1,10 +1,9 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-// import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const TopRated = ({ imageUrl, movieTitle, overview }) => {
+const RecommendedCard = ({ imageUrl, movieTitle, overview }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.popularMoviesCardContainer}>
@@ -35,7 +34,7 @@ const TopRated = ({ imageUrl, movieTitle, overview }) => {
   );
 };
 
-export default TopRated;
+export default RecommendedCard;
 
 const styles = StyleSheet.create({
   popularMoviesCardContainer: {

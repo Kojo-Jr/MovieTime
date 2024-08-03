@@ -100,96 +100,99 @@ const MainScreen = () => {
         }
         headerTitleText={"movietime"}
       />
-      <FlashList
-        ListHeaderComponent={() => {
-          return (
-            <View>
-              {/* Carousel Card */}
-              <Carousel />
+      <View style={{ flexGrow: 1 }}>
+        <FlashList
+          ListHeaderComponent={() => {
+            return (
+              <View>
+                {/* Carousel Card */}
+                <Carousel />
 
-              {/* Popular Movies Section */}
-              {/* Mini Header */}
-              <MiniHeader title="Popular Movies" navigationText="View All" />
+                {/* Popular Movies Section */}
+                {/* Mini Header */}
+                <MiniHeader title="Popular Movies" navigationText="Show All" />
 
-              {/* Popular Movies Cards */}
-              <View
-                style={{
-                  // flexGrow: 1,
-                  flexDirection: "row",
-                  height: wp("85")
-                }}
-              >
+                {/* Popular Movies Cards */}
+                <View
+                  style={{
+                    // flexGrow: 1,
+                    flexDirection: "row",
+                    height: wp("85")
+                  }}
+                >
+                  <FlashList
+                    data={popular}
+                    renderItem={({ item }) => (
+                      <PopularMovieCards
+                        imageUrl={image(item.poster_path)}
+                        movieTitle={item.title}
+                        vote_average={item.vote_average}
+                        overview={item.overview}
+                      />
+                    )}
+                    estimatedItemSize={100}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                  />
+                </View>
+
+                {/* Trailer Section */}
+
+                <MiniHeader title={"Trailers"} navigationText={"Show All"} />
+
+                {/* Trailer Cards */}
                 <FlashList
-                  data={popular}
+                  data={trailer}
                   renderItem={({ item }) => (
-                    <PopularMovieCards
+                    <TrailerCards
                       imageUrl={image(item.poster_path)}
-                      movieTitle={item.title}
-                      vote_average={item.vote_average}
-                      data={popular}
+                      title={item.title}
+                      overview={item.overview}
                     />
                   )}
                   estimatedItemSize={100}
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
                 />
-              </View>
 
-              {/* Trailer Section */}
+                {/* New Movies Section */}
+                <MiniHeader title={"Top Rated"} navigationText={"Show All"} />
+                <FlashList
+                  data={topRated}
+                  renderItem={({ item }) => (
+                    <TopRatedCards
+                      imageUrl={image(item.poster_path)}
+                      movieTitle={item.title}
+                      overview={item.overview}
+                    />
+                  )}
+                  estimatedItemSize={100}
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                />
 
-              <MiniHeader title={"Trailers"} navigationText={"View All"} />
-
-              {/* Trailer Cards */}
-              <FlashList
-                data={trailer}
-                renderItem={({ item }) => (
-                  <TrailerCards
-                    imageUrl={image(item.poster_path)}
-                    title={item.title}
-                  />
-                )}
-                estimatedItemSize={100}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-              />
-
-              {/* New Movies Section */}
-              <MiniHeader title={"Top Rated"} navigationText={"View All"} />
-              <FlashList
-                data={topRated}
-                renderItem={({ item }) => (
-                  <TopRatedCards
-                    imageUrl={image(item.poster_path)}
-                    movieTitle={item.title}
-                    data={popular}
-                  />
-                )}
-                estimatedItemSize={100}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-              />
-
-              {/* Coming Soon Section */}
-              <MiniHeader title={"Coming Soon"} navigationText={"View All"} />
-              <FlashList
-                data={upcoming}
-                renderItem={({ item }) => (
-                  <ComingSoonCard
-                    imageUrl={image(item.poster_path)}
-                    movieTitle={item.title}
-                    data={popular}
-                  />
-                )}
-                estimatedItemSize={100}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-              />
-            </View> //
-          );
-        }}
-        showsVerticalScrollIndicator={false}
-        estimatedItemSize={200}
-      />
+                {/* Coming Soon Section */}
+                <MiniHeader title={"Coming Soon"} navigationText={"Show All"} />
+                <FlashList
+                  data={upcoming}
+                  renderItem={({ item }) => (
+                    <ComingSoonCard
+                      imageUrl={image(item.poster_path)}
+                      movieTitle={item.title}
+                      overview={item.overview}
+                    />
+                  )}
+                  estimatedItemSize={100}
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                />
+              </View> //
+            );
+          }}
+          showsVerticalScrollIndicator={false}
+          estimatedItemSize={200}
+        />
+      </View>
     </View>
   );
 };

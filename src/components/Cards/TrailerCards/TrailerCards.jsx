@@ -3,7 +3,7 @@ import React from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/native";
 
-const TrailerCards = ({ imageUrl, title }) => {
+const TrailerCards = ({ imageUrl, title, overview }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.trailerMoviesCardContainer}>
@@ -11,7 +11,7 @@ const TrailerCards = ({ imageUrl, title }) => {
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("MovieDetailScreen", {
-              params: { imageUrl, title }
+              params: { imageUrl, title, overview }
             })
           }
         >
@@ -22,6 +22,9 @@ const TrailerCards = ({ imageUrl, title }) => {
             <Text style={styles.movieTitle}>{title}</Text>
           </View>
         </View>
+      </View>
+      <View style={{ display: "none" }}>
+        <Text>{overview}</Text>
       </View>
     </View>
   );

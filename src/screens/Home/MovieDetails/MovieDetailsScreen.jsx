@@ -1,8 +1,8 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { NavigationHeader } from "../../../components/Headers";
+import { MiniHeader, NavigationHeader } from "../../../components/Headers";
 import {
   FontAwesome,
   Ionicons,
@@ -10,130 +10,239 @@ import {
   MaterialIcons
 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { FlashList } from "@shopify/flash-list";
+import {
+  fetchRequestRecommended,
+  image
+} from "../../../function/api/fetchPost";
+import { RecommendedCard } from "../../../components/Cards";
 const MovieDetailsScreen = ({ route }) => {
   const navigation = useNavigation();
   const navigatetoHomeScreen = () => {
     navigation.navigate("HomeScreen");
   };
 
-  const { imageUrl, movieTitle, vote_average } = route.params.params;
+  const [recommended, setRecommended] = useState([]);
+
+  useEffect(() => {
+    getMoviesData();
+  }, []);
+
+  const getMoviesData = async () => {
+    try {
+      const recommendedData = await fetchRequestRecommended();
+      // setRecommended(recommendedData.results);
+      if (recommendedData && recommendedData.results) {
+        setRecommended(recommendedData.results);
+      }
+    } catch (error) {
+      console.log("Error fetching recommended movie data: ", error);
+    }
+  };
+
+  const { imageUrl, movieTitle, vote_average, overview } = route.params.params;
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <StatusBar style="auto" />
 
       {/* Image Banner */}
-      <View>
-        <Image style={styles.imageBanner} source={{ uri: imageUrl }} />
+      <View style={{ flexGrow: 1 }}>
+        <FlashList
+          ListHeaderComponent={() => {
+            return (
+              <View>
+                <Image style={styles.imageBanner} source={{ uri: imageUrl }} />
 
-        {/* import navigation header */}
-        <View style={styles.navigationHeader}>
-          <NavigationHeader
-            iconComponent={
-              <FontAwesome name="angle-left" size={32} color="white" />
-            }
-            iconComponent2={
-              <Ionicons name="heart-outline" size={32} color="white" />
-            }
-            iconComponent3={
-              <MaterialCommunityIcons
-                name="dots-vertical"
-                size={32}
-                color="white"
-              />
-            }
-            handleNavigation={navigatetoHomeScreen}
-          />
-        </View>
-      </View>
+                {/* import navigation header */}
+                <View style={styles.navigationHeader}>
+                  <NavigationHeader
+                    iconComponent={
+                      <FontAwesome name="angle-left" size={32} color="white" />
+                    }
+                    iconComponent2={
+                      <Ionicons name="heart-outline" size={32} color="white" />
+                    }
+                    iconComponent3={
+                      <MaterialCommunityIcons
+                        name="dots-vertical"
+                        size={32}
+                        color="white"
+                      />
+                    }
+                    handleNavigation={navigatetoHomeScreen}
+                  />
+                </View>
 
-      {/* Movie Card, title, rating, duration, genre */}
-      <View style={styles.movieDetailContainer}>
-        <TouchableOpacity>
-          <Image style={styles.movieCard} source={{ uri: imageUrl }} />
-        </TouchableOpacity>
+                {/* Movie Card, title, rating, duration, genre */}
+                <View style={styles.movieDetailContainer}>
+                  <TouchableOpacity>
+                    <Image
+                      style={styles.movieCard}
+                      source={{ uri: imageUrl }}
+                    />
+                  </TouchableOpacity>
 
-        {/* Movie title, rating */}
-        <View style={styles.movieTitleContainer}>
-          <View>
-            <Text style={styles.movieTitle}>{movieTitle}</Text>
-          </View>
-          <View style={styles.movieRatingContainer}>
-            <View style={styles.ratingiconContainer}>
-              <MaterialIcons name="star-rate" size={24} color="#FFC145" />
-              <Text>{vote_average}</Text>
-            </View>
-            <View style={styles.durationContainer}>
-              <MaterialIcons name="access-time" size={24} color="#77C8b2" />
-              <Text style={{ color: "gray", fontSize: wp("3.5") }}>2h 30m</Text>
-            </View>
-          </View>
-          {/*  Movie genre buttons */}
-          <View style={styles.movieGenreContainer}>
-            <TouchableOpacity style={styles.genreButton}>
-              <Text style={styles.genreText}>Fiction</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.genreButton}>
-              <Text style={styles.genreText}>Action</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.genreButton}>
-              <Text style={styles.genreText}>Adventure</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+                  {/* Movie title, rating */}
+                  <View style={styles.movieTitleContainer}>
+                    <View>
+                      <Text style={styles.movieTitle}>{movieTitle}</Text>
+                    </View>
+                    <View style={styles.movieRatingContainer}>
+                      <View style={styles.ratingiconContainer}>
+                        <MaterialIcons
+                          name="star-rate"
+                          size={24}
+                          color="#FFC145"
+                        />
+                        <Text>{vote_average}</Text>
+                      </View>
+                      <View style={styles.durationContainer}>
+                        <MaterialIcons
+                          name="access-time"
+                          size={24}
+                          color="#77C8b2"
+                        />
+                        <Text style={{ color: "gray", fontSize: wp("3.5") }}>
+                          2h 30m
+                        </Text>
+                      </View>
+                    </View>
+                    {/*  Movie genre buttons */}
+                    <View style={styles.movieGenreContainer}>
+                      <TouchableOpacity style={styles.genreButton}>
+                        <Text style={styles.genreText}>Fiction</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.genreButton}>
+                        <Text style={styles.genreText}>Action</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.genreButton}>
+                        <Text style={styles.genreText}>Adventure</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+                {/* Movie description */}
+                <View style={styles.movieDescriptionContainer}>
+                  <View style={styles.movieDescription}>
+                    <Text style={styles.movieDescriptionText}>
+                      Release date:
+                    </Text>
+                    <Text style={styles.movieDescriptionText1}>
+                      April 27, 2018
+                    </Text>
+                  </View>
+                  <View style={styles.movieDescription}>
+                    <Text style={styles.movieDescriptionText}>Director:</Text>
+                    <Text style={styles.movieDescriptionText2}>
+                      Anthony Russo, Joe Russo
+                    </Text>
+                  </View>
+                  <View style={styles.movieDescription}>
+                    <Text style={styles.movieDescriptionText}>Producer:</Text>
+                    <Text style={styles.movieDescriptionText3}>
+                      Kevin Feige
+                    </Text>
+                  </View>
+                  <View style={styles.movieDescription}>
+                    <Text style={styles.movieDescriptionText}>Composer:</Text>
+                    <Text style={styles.movieDescriptionText4}>
+                      Alan Silvestre
+                    </Text>
+                  </View>
+                  <View style={styles.movieDescription}>
+                    <Text style={styles.movieDescriptionText}>Box Office:</Text>
+                    <Text style={styles.movieDescriptionText5}>
+                      $2.049 billion
+                    </Text>
+                  </View>
+                </View>
 
-      {/* Movie description */}
-      <View style={styles.movieDescriptionContainer}>
-        <View style={styles.movieDescription}>
-          <Text style={styles.movieDescriptionText}>Release date:</Text>
-          <Text style={styles.movieDescriptionText1}>April 27, 2018</Text>
-        </View>
-        <View style={styles.movieDescription}>
-          <Text style={styles.movieDescriptionText}>Director:</Text>
-          <Text style={styles.movieDescriptionText2}>
-            Anthony Russo, Joe Russo
-          </Text>
-        </View>
-        <View style={styles.movieDescription}>
-          <Text style={styles.movieDescriptionText}>Producer:</Text>
-          <Text style={styles.movieDescriptionText3}>Kevin Feige</Text>
-        </View>
-        <View style={styles.movieDescription}>
-          <Text style={styles.movieDescriptionText}>Composer:</Text>
-          <Text style={styles.movieDescriptionText4}>Alan Silvestre</Text>
-        </View>
-        <View style={styles.movieDescription}>
-          <Text style={styles.movieDescriptionText}>Box Office:</Text>
-          <Text style={styles.movieDescriptionText5}>$2.049 billion</Text>
-        </View>
-      </View>
+                {/* Storyline */}
+                <View style={styles.storylineContainer}>
+                  <View>
+                    <Text style={styles.storylineTitleText}>Storyline</Text>
+                    <View>
+                      <Text style={styles.storylineText}>{overview}</Text>
+                    </View>
+                  </View>
+                </View>
 
-      <View style={styles.storylineContainer}>
-        <View>
-          <Text style={styles.storylineTitleText}>Storyline</Text>
-          <View>
-            <Text style={styles.storylineText}>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo
-              beatae sint quia laudantium facere sequi placeat, fugiat officia
-              delectus inventore animi magni, quaerat dolorem in consequuntur
-              non eligendi autem debitis?
-            </Text>
-          </View>
-        </View>
-      </View>
+                {/* Cast */}
+                <View style={styles.castContainer}>
+                  <View>
+                    <Text style={styles.castTitleText}>Cast</Text>
+                  </View>
+                  <View style={styles.castImagesContainer}>
+                    <View style={styles.imageContent}>
+                      <Image style={styles.castImage} />
+                      <Text>Tom Cruise</Text>
+                    </View>
+                    <View style={styles.imageContent}>
+                      <Image style={styles.castImage} />
+                      <Text>Tom Cruise</Text>
+                    </View>
+                    <View style={styles.imageContent}>
+                      <Image style={styles.castImage} />
+                      <Text>Tom Cruise</Text>
+                    </View>
+                    <View style={styles.imageContent}>
+                      <Image style={styles.castImage} />
+                      <Text>Tom Cruise</Text>
+                    </View>
+                    <View style={styles.imageContent}>
+                      <Image style={styles.castImage} />
+                      <Text>Tom Cruise</Text>
+                    </View>
+                  </View>
+                </View>
 
-      <View style={styles.castContainer}>
-        <View>
-          <Text style={styles.castTitleText}>Cast</Text>
-        </View>
-        <View style={styles.castImagesContainer}>
-          <Image style={styles.castImage} />
-          <Image style={styles.castImage} />
-          <Image style={styles.castImage} />
-          <Image style={styles.castImage} />
-          <Image style={styles.castImage} />
-          <Image style={styles.castImage} />
-        </View>
+                {/* Photo Gallery */}
+                <View style={styles.photoGalleryContainer}>
+                  <View>
+                    <Text style={styles.photoGalleryTitleText}>Photo</Text>
+                  </View>
+                  <View style={styles.photoGalleryImagesContainer}>
+                    <View>
+                      <Image style={styles.photo} />
+                    </View>
+                    <View>
+                      <Image style={styles.photo} />
+                    </View>
+                    <View>
+                      <Image style={styles.photo} />
+                    </View>
+                    <View>
+                      <Image style={styles.photo} />
+                    </View>
+                  </View>
+                </View>
+
+                {/* New Movies Section */}
+                <View style={styles.recommendedContainer}>
+                  <MiniHeader
+                    title={"Recommended"}
+                    navigationText={"Show All"}
+                  />
+                  <FlashList
+                    data={recommended}
+                    renderItem={({ item }) => (
+                      <RecommendedCard
+                        imageUrl={image(item.poster_path)}
+                        movieTitle={item.title}
+                        overview={item.overview}
+                      />
+                    )}
+                    estimatedItemSize={100}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                  />
+                </View>
+              </View>
+            );
+          }}
+          showsVerticalScrollIndicator={false}
+          estimatedItemSize={200}
+        />
       </View>
     </View>
   );
@@ -268,5 +377,31 @@ const styles = StyleSheet.create({
   castImagesContainer: {
     flexDirection: "row",
     gap: wp(3)
+  },
+  imageContent: {
+    justifyContent: "center",
+    alignItems: "center",
+    gap: wp(2)
+  },
+  photoGalleryContainer: {
+    padding: wp(3),
+    gap: wp(3)
+  },
+  photoGalleryTitleText: {
+    fontSize: wp(5),
+    fontWeight: "medium"
+  },
+  photoGalleryImagesContainer: {
+    flexDirection: "row",
+    gap: wp(3)
+  },
+  photo: {
+    width: wp(45),
+    height: wp(25),
+    borderRadius: wp(3),
+    backgroundColor: "black"
+  },
+  recommendedContainer: {
+    padding: wp(3)
   }
 });

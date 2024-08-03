@@ -4,7 +4,7 @@ import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const ComingSoonCard = ({ imageUrl, movieTitle }) => {
+const ComingSoonCard = ({ imageUrl, movieTitle, overview }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.popularMoviesCardContainer}>
@@ -12,7 +12,7 @@ const ComingSoonCard = ({ imageUrl, movieTitle }) => {
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("MovieDetailScreen", {
-              params: { imageUrl, movieTitle }
+              params: { imageUrl, movieTitle, overview }
             })
           }
         >
@@ -27,6 +27,9 @@ const ComingSoonCard = ({ imageUrl, movieTitle }) => {
             <Text>{movieRating}</Text>
           </View> */}
         </View>
+      </View>
+      <View style={{ display: "none" }}>
+        <Text>{overview}</Text>
       </View>
     </View>
   );
