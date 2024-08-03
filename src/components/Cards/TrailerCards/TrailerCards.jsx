@@ -5,6 +5,12 @@ import { useNavigation } from "@react-navigation/native";
 
 const TrailerCards = ({ imageUrl, title, overview }) => {
   const navigation = useNavigation();
+
+  const truncateTitle = (title, maxLength) => {
+    if (title.length <= maxLength) return title;
+    return `${title.substring(0, maxLength)}...`;
+  };
+
   return (
     <View style={styles.trailerMoviesCardContainer}>
       <View>
@@ -19,7 +25,7 @@ const TrailerCards = ({ imageUrl, title, overview }) => {
         </TouchableOpacity>
         <View style={styles.movieTitleContainer}>
           <View>
-            <Text style={styles.movieTitle}>{title}</Text>
+            <Text style={styles.movieTitle}>{truncateTitle(title, 20)}</Text>
           </View>
         </View>
       </View>

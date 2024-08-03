@@ -5,6 +5,12 @@ import { useNavigation } from "@react-navigation/native";
 
 const RecommendedCard = ({ imageUrl, movieTitle, overview }) => {
   const navigation = useNavigation();
+
+  const truncateTitle = (title, maxLength) => {
+    if (title.length <= maxLength) return title;
+    return `${title.substring(0, maxLength)}...`;
+  };
+
   return (
     <View style={styles.popularMoviesCardContainer}>
       <View>
@@ -19,7 +25,9 @@ const RecommendedCard = ({ imageUrl, movieTitle, overview }) => {
         </TouchableOpacity>
         <View style={styles.movieTitleContainer}>
           <View>
-            <Text style={styles.movieTitle}>{movieTitle}</Text>
+            <Text style={styles.movieTitle}>
+              {truncateTitle(movieTitle, 20)}
+            </Text>
           </View>
           {/* <View style={styles.movieRating}>
             <MaterialIcons name="star-rate" size={24} color="#FFC145" />

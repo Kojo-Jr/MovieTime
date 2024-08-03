@@ -40,6 +40,11 @@ const MovieDetailsScreen = ({ route }) => {
     }
   };
 
+  const truncateTitle = (title, maxLength) => {
+    if (title.length <= maxLength) return title;
+    return `${title.substring(0, maxLength)}...`;
+  };
+
   const { imageUrl, movieTitle, vote_average, overview } = route.params.params;
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -85,7 +90,9 @@ const MovieDetailsScreen = ({ route }) => {
                   {/* Movie title, rating */}
                   <View style={styles.movieTitleContainer}>
                     <View>
-                      <Text style={styles.movieTitle}>{movieTitle}</Text>
+                      <Text style={styles.movieTitle}>
+                        {truncateTitle(movieTitle, 20)}
+                      </Text>
                     </View>
                     <View style={styles.movieRatingContainer}>
                       <View style={styles.ratingiconContainer}>
@@ -236,6 +243,11 @@ const MovieDetailsScreen = ({ route }) => {
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                   />
+                </View>
+
+                {/* Reviews */}
+                <View style={styles.recommendedContainer}>
+                  <MiniHeader title={"Reviews"} navigationText={"Show All"} />
                 </View>
               </View>
             );
