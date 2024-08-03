@@ -1,13 +1,21 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { MaterialIcons } from "@expo/vector-icons";
+// import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const TopRated = ({ imageUrl, movieTitle }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.popularMoviesCardContainer}>
       <View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("MovieDetailScreen", {
+              params: { imageUrl, movieTitle }
+            })
+          }
+        >
           <Image style={styles.imageCard} source={{ uri: imageUrl }} />
         </TouchableOpacity>
         <View style={styles.movieTitleContainer}>

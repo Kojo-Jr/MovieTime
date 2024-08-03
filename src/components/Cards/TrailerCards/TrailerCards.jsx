@@ -1,12 +1,20 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { useNavigation } from "@react-navigation/native";
 
 const TrailerCards = ({ imageUrl, title }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.trailerMoviesCardContainer}>
       <View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("MovieDetailScreen", {
+              params: { imageUrl, title }
+            })
+          }
+        >
           <Image style={styles.imageCard} source={{ uri: imageUrl }} />
         </TouchableOpacity>
         <View style={styles.movieTitleContainer}>

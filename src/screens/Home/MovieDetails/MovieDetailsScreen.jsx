@@ -48,9 +48,9 @@ const MovieDetailsScreen = ({ route }) => {
 
       {/* Movie Card, title, rating, duration, genre */}
       <View style={styles.movieDetailContainer}>
-        <View>
+        <TouchableOpacity>
           <Image style={styles.movieCard} source={{ uri: imageUrl }} />
-        </View>
+        </TouchableOpacity>
 
         {/* Movie title, rating */}
         <View style={styles.movieTitleContainer}>
@@ -108,19 +108,31 @@ const MovieDetailsScreen = ({ route }) => {
         </View>
       </View>
 
-      <View style={{ padding: wp(3) }}>
+      <View style={styles.storylineContainer}>
         <View>
-          <Text style={{ fontSize: wp(5), fontWeight: "medium" }}>
-            Storyline
-          </Text>
+          <Text style={styles.storylineTitleText}>Storyline</Text>
           <View>
-            <Text style={{ marginTop: wp(2) }}>
+            <Text style={styles.storylineText}>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo
               beatae sint quia laudantium facere sequi placeat, fugiat officia
               delectus inventore animi magni, quaerat dolorem in consequuntur
               non eligendi autem debitis?
             </Text>
           </View>
+        </View>
+      </View>
+
+      <View style={styles.castContainer}>
+        <View>
+          <Text style={styles.castTitleText}>Cast</Text>
+        </View>
+        <View style={styles.castImagesContainer}>
+          <Image style={styles.castImage} />
+          <Image style={styles.castImage} />
+          <Image style={styles.castImage} />
+          <Image style={styles.castImage} />
+          <Image style={styles.castImage} />
+          <Image style={styles.castImage} />
         </View>
       </View>
     </View>
@@ -228,5 +240,33 @@ const styles = StyleSheet.create({
   movieDescriptionText5: {
     color: "gray",
     fontSize: wp("4")
+  },
+  storylineContainer: {
+    padding: wp(3)
+  },
+  storylineTitleText: {
+    fontSize: wp(5),
+    fontWeight: "medium"
+  },
+  storylineText: {
+    marginTop: wp(2)
+  },
+  castContainer: {
+    padding: wp(3),
+    gap: wp(3)
+  },
+  castTitleText: {
+    fontSize: wp(5),
+    fontWeight: "medium"
+  },
+  castImage: {
+    width: wp(20),
+    height: wp(20),
+    borderRadius: wp(20),
+    backgroundColor: "black"
+  },
+  castImagesContainer: {
+    flexDirection: "row",
+    gap: wp(3)
   }
 });

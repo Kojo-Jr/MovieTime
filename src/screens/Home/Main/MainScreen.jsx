@@ -12,7 +12,8 @@ import {
   Carousel,
   PopularMovieCards,
   TrailerCards,
-  TopRatedCards
+  TopRatedCards,
+  ComingSoonCard
 } from "../../../../src/components/Cards";
 import {
   NavigationHeader,
@@ -173,7 +174,7 @@ const MainScreen = () => {
               <FlashList
                 data={upcoming}
                 renderItem={({ item }) => (
-                  <TopRatedCards
+                  <ComingSoonCard
                     imageUrl={image(item.poster_path)}
                     movieTitle={item.title}
                     data={popular}
