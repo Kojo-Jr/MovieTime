@@ -247,7 +247,30 @@ const MovieDetailsScreen = ({ route }) => {
 
                 {/* Reviews */}
                 <View style={styles.recommendedContainer}>
-                  <MiniHeader title={"Reviews"} navigationText={"Show All"} />
+                  <View>
+                    <MiniHeader title={"Reviews"} navigationText={"Show All"} />
+                  </View>
+                  <View style={styles.reviewsContainer}>
+                    <View>
+                      <Text style={styles.reviewsText}>324 reviews</Text>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: wp(1),
+                        bottom: wp(5)
+                      }}
+                    >
+                      <MaterialIcons
+                        name="star-rate"
+                        size={20}
+                        color="#FFC145"
+                      />
+                      <Text style={styles.reviewsText1}>{vote_average}</Text>
+                      <Text styles={styles.reviewsText2}>/10</Text>
+                    </View>
+                  </View>
                 </View>
               </View>
             );
@@ -414,6 +437,21 @@ const styles = StyleSheet.create({
     backgroundColor: "black"
   },
   recommendedContainer: {
-    padding: wp(3)
+    padding: wp(3),
+    gap: wp(2)
+  },
+  reviewsText: {
+    color: "gray"
+  },
+  reviewsContainer: {
+    flexDirection: "row",
+    gap: wp(6)
+  },
+  reviewsText1: {
+    fontSize: wp(6),
+    color: "#77C8B2"
+  },
+  reviewsText2: {
+    color: "#77C8B2"
   }
 });
