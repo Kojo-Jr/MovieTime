@@ -3,7 +3,7 @@ import React from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/native";
 
-const ComingSoonCard = ({ imageUrl, movieTitle, overview }) => {
+const NowPlayingCard = ({ imageUrl, movieTitle, overview }) => {
   const navigation = useNavigation();
 
   const truncateTitle = (title, maxLength) => {
@@ -42,7 +42,7 @@ const ComingSoonCard = ({ imageUrl, movieTitle, overview }) => {
   );
 };
 
-export default ComingSoonCard;
+export default NowPlayingCard;
 
 const styles = StyleSheet.create({
   popularMoviesCardContainer: {

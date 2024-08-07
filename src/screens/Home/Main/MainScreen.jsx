@@ -13,7 +13,8 @@ import {
   PopularMovieCards,
   TrailerCards,
   TopRatedCards,
-  ComingSoonCard
+  ComingSoonCard,
+  NowPlayingCard
 } from "../../../../src/components/Cards";
 import {
   NavigationHeader,
@@ -187,7 +188,23 @@ const MainScreen = () => {
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
                 />
-              </View> //
+
+                {/* Coming Soon Section */}
+                <MiniHeader title={"Now Playing"} navigationText={"Show All"} />
+                <FlashList
+                  data={nowPlaying}
+                  renderItem={({ item }) => (
+                    <NowPlayingCard
+                      imageUrl={image(item.poster_path)}
+                      movieTitle={item.title}
+                      overview={item.overview}
+                    />
+                  )}
+                  estimatedItemSize={100}
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                />
+              </View>
             );
           }}
           showsVerticalScrollIndicator={false}

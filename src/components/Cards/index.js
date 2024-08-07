@@ -4,6 +4,7 @@ import TrailerCards from "./TrailerCards/TrailerCards";
 import TopRatedCards from "./TopRated/TopRatedCards";
 import ComingSoonCard from "./ComingSoonCards/ComingSoonCard";
 import RecommendedCard from "./RecommendedCards/RecommendedCard";
+import NowPlayingCard from "./NowPlayingCards/NowPlayingCard";
 
 export {
   Carousel,
@@ -11,5 +12,6 @@ export {
   TrailerCards,
   TopRatedCards,
   ComingSoonCard,
-  RecommendedCard
+  RecommendedCard,
+  NowPlayingCard
 };
