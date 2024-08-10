@@ -186,19 +186,19 @@ const MovieDetailsScreen = ({ route }) => {
                     </View>
                     <View style={styles.imageContent}>
                       <Image style={styles.castImage} />
-                      <Text>Tom Cruise</Text>
+                      <Text>Chris Hemsworth</Text>
                     </View>
                     <View style={styles.imageContent}>
                       <Image style={styles.castImage} />
-                      <Text>Tom Cruise</Text>
+                      <Text>Chris Evans</Text>
                     </View>
                     <View style={styles.imageContent}>
                       <Image style={styles.castImage} />
-                      <Text>Tom Cruise</Text>
+                      <Text>Scarlett Johannson</Text>
                     </View>
                     <View style={styles.imageContent}>
                       <Image style={styles.castImage} />
-                      <Text>Tom Cruise</Text>
+                      <Text>Robert Downey Jr.</Text>
                     </View>
                   </View>
                 </View>
@@ -245,7 +245,7 @@ const MovieDetailsScreen = ({ route }) => {
                   />
                 </View>
 
-                {/* Reviews */}
+                {/* Review Header */}
                 <View style={styles.recommendedContainer}>
                   <View>
                     <MiniHeader title={"Reviews"} navigationText={"Show All"} />
@@ -270,6 +270,38 @@ const MovieDetailsScreen = ({ route }) => {
                       <Text style={styles.reviewsText1}>{vote_average}</Text>
                       <Text styles={styles.reviewsText2}>/10</Text>
                     </View>
+                  </View>
+                </View>
+
+                {/* Review Details */}
+                <View style={styles.reviewsDetailsContainer}>
+                  <View>
+                    <Image
+                      style={{
+                        width: wp(17),
+                        height: wp(17),
+                        borderRadius: wp(20),
+                        backgroundColor: "black",
+                        marginTop: wp(3)
+                      }}
+                    />
+                  </View>
+                  <View style={{ padding: wp(2) }}>
+                    <Text style={{ fontWeight: "bold", fontSize: wp(4) }}>
+                      Karen Page
+                    </Text>
+                    <Text style={{ color: "gray" }}>12.05.18</Text>
+                    <Text
+                      style={{ width: wp(65), color: "gray", marginTop: wp(2) }}
+                    >
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Voluptate facere tempora quae aut distinctio debitis
+                      eaque, doloremque!
+                    </Text>
+                  </View>
+                  <View>
+                    <MaterialIcons name="star-rate" size={20} color="#FFC145" />
+                    <Text>9.5</Text>
                   </View>
                 </View>
               </View>
@@ -453,5 +485,10 @@ const styles = StyleSheet.create({
   },
   reviewsText2: {
     color: "#77C8B2"
+  },
+  reviewsDetailsContainer: {
+    padding: wp(3),
+    flexDirection: "row",
+    bottom: wp(5)
   }
 });

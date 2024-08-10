@@ -108,15 +108,13 @@ const MainScreen = () => {
               <View>
                 {/* Carousel Card */}
                 <Carousel />
-
                 {/* Popular Movies Section */}
                 {/* Mini Header */}
                 <MiniHeader title="Popular Movies" navigationText="Show All" />
-
                 {/* Popular Movies Cards */}
                 <View
                   style={{
-                    // flexGrow: 1,
+                    flexGrow: 1,
                     flexDirection: "row",
                     height: wp("85")
                   }}
@@ -136,11 +134,8 @@ const MainScreen = () => {
                     showsHorizontalScrollIndicator={false}
                   />
                 </View>
-
                 {/* Trailer Section */}
-
                 <MiniHeader title={"Trailers"} navigationText={"Show All"} />
-
                 {/* Trailer Cards */}
                 <FlashList
                   data={trailer}
@@ -156,9 +151,9 @@ const MainScreen = () => {
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
                 />
-
                 {/* New Movies Section */}
                 <MiniHeader title={"Top Rated"} navigationText={"Show All"} />
+
                 <FlashList
                   data={topRated}
                   renderItem={({ item }) => (
@@ -172,7 +167,6 @@ const MainScreen = () => {
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
                 />
-
                 {/* Coming Soon Section */}
                 <MiniHeader title={"Coming Soon"} navigationText={"Show All"} />
                 <FlashList
@@ -188,7 +182,6 @@ const MainScreen = () => {
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
                 />
-
                 {/* Coming Soon Section */}
                 <MiniHeader title={"Now Playing"} navigationText={"Show All"} />
                 <FlashList

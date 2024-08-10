@@ -15,7 +15,7 @@ const NavigationHeader = ({
         {iconComponent ? iconComponent : <iconComponent />}
         {/* <Ionicons name="menu" size={28} color="black" /> */}
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity style={styles.headerTitleContainer}>
         <Text style={styles.headerTitleText}>{headerTitleText}</Text>
       </TouchableOpacity>
 
@@ -42,6 +42,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: wp("8"),
     justifyContent: "space-between"
+  },
+  headerTitleContainer: {
+    left: wp("5")
   },
   headerTitleText: {
     color: "#FB5558",
