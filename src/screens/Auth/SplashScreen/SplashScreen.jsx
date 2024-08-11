@@ -1,9 +1,22 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import { React, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { useNavigation } from "@react-navigation/native";
 
 const SplashScreen = () => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // A timeout to navigate to the SignUp screen after 3 seconds
+    const timer = setTimeout(() => {
+      navigation.navigate("SignUpScreen");
+    }, 2000); // 3000ms = 3 seconds
+
+    //  To Cleanup the timer when the component is unmounted
+    return () => clearTimeout(timer);
+  }, [navigation]);
+
   return (
     <View style={styles.splashscreenContainer}>
       <StatusBar style="auto" />

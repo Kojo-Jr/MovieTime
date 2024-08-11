@@ -3,8 +3,18 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const SignUp = () => {
+  const navigation = useNavigation();
+
+  const handleSkip = () => {
+    navigation.navigate("ProtectedStack", {
+      screen: "DrawerNavigator",
+      params: { screen: "Home" } // Use params to specify the target screen within the DrawerNavigator
+    });
+  };
+
   return (
     <View style={{ flex: 1, padding: wp("3"), backgroundColor: "white" }}>
       <StatusBar style="auto" />
@@ -148,6 +158,23 @@ const SignUp = () => {
           <Text style={{ color: "#77C8B2" }}>SIGN UP</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Skip */}
+      <TouchableOpacity
+        style={{
+          marginTop: wp("3"),
+          alignSelf: "flex-end",
+          padding: wp("2"),
+          right: wp("3"),
+          backgroundColor: "#003478",
+          width: wp("15"),
+          alignItems: "center",
+          borderRadius: wp("1")
+        }}
+        onPress={handleSkip}
+      >
+        <Text style={{ color: "#fff", fontSize: wp("4") }}>Skip</Text>
+      </TouchableOpacity>
     </View>
   );
 };

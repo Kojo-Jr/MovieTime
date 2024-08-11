@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import {
@@ -8,93 +8,37 @@ import {
 } from "@expo/vector-icons";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { FlashList } from "@shopify/flash-list";
-import {
-  Carousel,
-  PopularMovieCards,
-  TrailerCards,
-  TopRatedCards,
-  ComingSoonCard,
-  NowPlayingCard
-} from "../../../../src/components/Cards";
-import {
-  NavigationHeader,
-  MiniHeader
-} from "../../../../src/components/Headers";
-import {
-  fetchRequestPopular,
-  fetchRequestTopRated,
-  fetchRequestUpcoming,
-  fetchRequestNowPlaying,
-  fetchRequestHorror,
-  fetchRequestComedy,
-  fetchRequestAction,
-  fetchRequestDrama,
-  fetchRequestSciFi,
-  fetchRequestTrailer,
-  image
-} from "../../../function/api/fetchPost";
+import { Carousel } from "../../../../src/components/Cards"; // Adjust the import path if necessary
+import { NavigationHeader } from "../../../../src/components/Headers"; // Adjust the import path if necessary
+import LoadingIndicator from "../../../components/LoadingIndicator/LoadingIndicator";
+import useMoviesData from "../../../hooks/useMoviesData/useMoviesData";
+import MovieSection from "../../../components/MovieSections/MovieSection";
 import { useNavigation } from "@react-navigation/native";
 
 const MainScreen = () => {
   const navigation = useNavigation();
+  const {
+    isLoading,
+    popular,
+    trailer,
+    topRated,
+    upcoming,
+    nowPlaying,
+    horror,
+    comedy,
+    action,
+    drama,
+    sciFi
+  } = useMoviesData(); // Use the custom hook
 
   const openDrawer = () => {
     navigation.openDrawer(); // This opens the drawer
   };
 
-  const [popular, setPopular] = useState([]);
-  const [trailer, setTrailer] = useState([]);
-  const [topRated, setTopRated] = useState([]);
-  const [upcoming, setUpcoming] = useState([]);
-  const [nowPlaying, setNowPlaying] = useState([]);
-  const [horror, setHorror] = useState([]);
-  const [comedy, setComedy] = useState([]);
-  const [action, setAction] = useState([]);
-  const [drama, setDrama] = useState([]);
-  const [sciFi, setSciFi] = useState([]);
-
-  useEffect(() => {
-    getMoviesData();
-  }, []);
-
-  const getMoviesData = async () => {
-    try {
-      const popularData = await fetchRequestPopular();
-      const trailerData = await fetchRequestTrailer();
-      const topRatedData = await fetchRequestTopRated();
-      const upcomingData = await fetchRequestUpcoming();
-      const nowPlayingData = await fetchRequestNowPlaying();
-      const horrorData = await fetchRequestHorror();
-      const comedyData = await fetchRequestComedy();
-      const actionData = await fetchRequestAction();
-      const dramaData = await fetchRequestDrama();
-      const sciFiData = await fetchRequestSciFi();
-
-      if (popularData && popularData.results) setPopular(popularData.results);
-      if (trailerData && trailerData.results) setTrailer(trailerData.results);
-      if (topRatedData && topRatedData.results)
-        setTopRated(topRatedData.results);
-      if (upcomingData && upcomingData.results)
-        setUpcoming(upcomingData.results);
-      if (nowPlayingData && nowPlayingData.results)
-        setNowPlaying(nowPlayingData.results);
-      if (horrorData && horrorData.results) setHorror(horrorData.results);
-      if (comedyData && comedyData.results) setComedy(comedyData.results);
-      if (actionData && actionData.results) setAction(actionData.results);
-      if (dramaData && dramaData.results) setDrama(dramaData.results);
-      if (sciFiData && sciFiData.results) setSciFi(sciFiData.results);
-    } catch (error) {
-      console.error("Error fetching movie data: ", error);
-    }
-  };
-
-  // console.log(popular);
-
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
 
-      {/* Header */}
       <NavigationHeader
         iconComponent={
           <Ionicons
@@ -115,96 +59,36 @@ const MainScreen = () => {
           ListHeaderComponent={() => {
             return (
               <View>
-                {/* Carousel Card */}
                 <Carousel />
-                {/* Popular Movies Section */}
-                {/* Mini Header */}
-                <MiniHeader title="Popular Movies" navigationText="Show All" />
-                {/* Popular Movies Cards */}
-                <View
-                  style={{
-                    flexGrow: 1,
-                    flexDirection: "row",
-                    height: wp("85")
-                  }}
-                >
-                  <FlashList
-                    data={popular}
-                    renderItem={({ item }) => (
-                      <PopularMovieCards
-                        imageUrl={image(item.poster_path)}
-                        movieTitle={item.title}
-                        vote_average={item.vote_average}
-                        overview={item.overview}
-                      />
-                    )}
-                    estimatedItemSize={100}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                  />
-                </View>
-                {/* Trailer Section */}
-                <MiniHeader title={"Trailers"} navigationText={"Show All"} />
-                {/* Trailer Cards */}
-                <FlashList
+                <MovieSection
+                  title="Popular Movies"
+                  data={popular}
+                  cardType="Popular"
+                  navigationText="Show All"
+                />
+                <MovieSection
+                  title="Trailers"
                   data={trailer}
-                  renderItem={({ item }) => (
-                    <TrailerCards
-                      imageUrl={image(item.poster_path)}
-                      title={item.title}
-                      overview={item.overview}
-                      vote_average={item.vote_average}
-                    />
-                  )}
-                  estimatedItemSize={100}
-                  horizontal={true}
-                  showsHorizontalScrollIndicator={false}
+                  cardType="Trailer"
+                  navigationText="Show All"
                 />
-                {/* New Movies Section */}
-                <MiniHeader title={"Top Rated"} navigationText={"Show All"} />
-
-                <FlashList
+                <MovieSection
+                  title="Top Rated"
                   data={topRated}
-                  renderItem={({ item }) => (
-                    <TopRatedCards
-                      imageUrl={image(item.poster_path)}
-                      movieTitle={item.title}
-                      overview={item.overview}
-                    />
-                  )}
-                  estimatedItemSize={100}
-                  horizontal={true}
-                  showsHorizontalScrollIndicator={false}
+                  cardType="TopRated"
+                  navigationText="Show All"
                 />
-                {/* Coming Soon Section */}
-                <MiniHeader title={"Coming Soon"} navigationText={"Show All"} />
-                <FlashList
+                <MovieSection
+                  title="Coming Soon"
                   data={upcoming}
-                  renderItem={({ item }) => (
-                    <ComingSoonCard
-                      imageUrl={image(item.poster_path)}
-                      movieTitle={item.title}
-                      overview={item.overview}
-                    />
-                  )}
-                  estimatedItemSize={100}
-                  horizontal={true}
-                  showsHorizontalScrollIndicator={false}
+                  cardType="ComingSoon"
+                  navigationText="Show All"
                 />
-                {/* Coming Soon Section */}
-                <MiniHeader title={"Now Playing"} navigationText={"Show All"} />
-                <FlashList
+                <MovieSection
+                  title="Now Playing"
                   data={nowPlaying}
-                  renderItem={({ item }) => (
-                    <NowPlayingCard
-                      imageUrl={image(item.poster_path)}
-                      movieTitle={item.title}
-                      overview={item.overview}
-                    />
-                  )}
-                  estimatedItemSize={100}
-                  horizontal={true}
-                  showsHorizontalScrollIndicator={false}
+                  cardType="NowPlaying"
+                  navigationText="Show All"
                 />
               </View>
             );
@@ -213,6 +97,11 @@ const MainScreen = () => {
           estimatedItemSize={200}
         />
       </View>
+      {isLoading && (
+        <View style={styles.loadingContainer}>
+          <LoadingIndicator />
+        </View>
+      )}
     </View>
   );
 };
@@ -224,5 +113,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: wp("4")
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
