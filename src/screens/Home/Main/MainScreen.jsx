@@ -33,14 +33,15 @@ import {
   fetchRequestTrailer,
   image
 } from "../../../function/api/fetchPost";
-
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
+import { useNavigation } from "@react-navigation/native";
 
 const MainScreen = () => {
+  const navigation = useNavigation();
+
+  const openDrawer = () => {
+    navigation.openDrawer(); // This opens the drawer
+  };
+
   const [popular, setPopular] = useState([]);
   const [trailer, setTrailer] = useState([]);
   const [topRated, setTopRated] = useState([]);
@@ -88,13 +89,21 @@ const MainScreen = () => {
   };
 
   // console.log(popular);
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
 
       {/* Header */}
       <NavigationHeader
-        iconComponent={<Ionicons name="menu" size={24} color={"black"} />}
+        iconComponent={
+          <Ionicons
+            name="menu"
+            size={24}
+            color={"black"}
+            onPress={openDrawer}
+          />
+        }
         iconComponent2={<AntDesign name="search1" size={24} color={"black"} />}
         iconComponent3={
           <MaterialCommunityIcons name="account" size={32} color="black" />
