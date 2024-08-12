@@ -90,6 +90,18 @@ const MainScreen = () => {
                   cardType="NowPlaying"
                   navigationText="Show All"
                 />
+                <MovieSection
+                  title={"Horror"}
+                  data={horror}
+                  cardType="Horror"
+                  navigationText="Show All"
+                />
+                <MovieSection
+                  title={"Comedy"}
+                  data={comedy}
+                  cardType="Comedy"
+                  navigationText="Show All"
+                />
               </View>
             );
           }}

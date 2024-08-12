@@ -7,7 +7,9 @@ import {
   TrailerCards,
   TopRatedCards,
   ComingSoonCard,
-  NowPlayingCard
+  NowPlayingCard,
+  HorrorCard,
+  ComedyCard
 } from "../Cards";
 import { MiniHeader } from "../Headers";
 import { image } from "../../function/api/fetchPost";
@@ -52,6 +54,22 @@ const MovieSection = ({ title, data, cardType, navigationText }) => {
       case "NowPlaying":
         return (
           <NowPlayingCard
+            imageUrl={image(item.poster_path)}
+            movieTitle={item.title}
+            overview={item.overview}
+          />
+        );
+      case "Horror":
+        return (
+          <HorrorCard
+            imageUrl={image(item.poster_path)}
+            movieTitle={item.title}
+            overview={item.overview}
+          />
+        );
+      case "Comedy":
+        return (
+          <ComedyCard
             imageUrl={image(item.poster_path)}
             movieTitle={item.title}
             overview={item.overview}
