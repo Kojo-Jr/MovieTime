@@ -160,7 +160,7 @@ const SignUp = () => {
       </View>
 
       {/* Skip */}
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={{
           marginTop: wp("3"),
           alignSelf: "flex-end",
@@ -174,7 +174,7 @@ const SignUp = () => {
         onPress={handleSkip}
       >
         <Text style={{ color: "#fff", fontSize: wp("4") }}>Skip</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
