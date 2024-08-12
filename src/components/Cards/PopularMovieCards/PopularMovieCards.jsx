@@ -17,6 +17,10 @@ const PopularMovieCards = ({
     return `${title.substring(0, maxLength)}...`;
   };
 
+  const roundAverage = (vote_average) => {
+    return vote_average.toFixed(1);
+  };
+
   return (
     <View style={styles.popularMoviesCardContainer}>
       <View>
@@ -37,7 +41,7 @@ const PopularMovieCards = ({
           </View>
           <View style={styles.movieRating}>
             <MaterialIcons name="star-rate" size={24} color="#FFC145" />
-            <Text>{vote_average}</Text>
+            <Text>{roundAverage(vote_average) || vote_average}</Text>
           </View>
         </View>
       </View>
