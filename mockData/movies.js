@@ -35,32 +35,32 @@ export const trailerData = [
 export const castImages = [
   {
     id: 1,
-    actorsName: "Tom Cruise",
+    actorsName: "Tom\nCruise",
     imageUrl: require("../assets/mockImages/castImages/Tom_Cruise.jpg")
   },
   {
     id: 2,
-    actorsName: "Chris Hemsworth",
+    actorsName: "Chris\nHemsworth",
     imageUrl: require("../assets/mockImages/castImages/Chris_Hemsworth.jpeg")
   },
   {
     id: 3,
-    actorsName: "Chris Evans",
+    actorsName: "Chris\nEvans",
     imageUrl: require("../assets/mockImages/castImages/Chris_Evans.jpg")
   },
   {
     id: 3,
-    actorsName: "Scarlett Johansson",
+    actorsName: "Scarlett\nJohansson",
     imageUrl: require("../assets/mockImages/castImages/Scarlett_Johansson.jpeg")
   },
   {
     id: 4,
-    actorsName: "Will Smith",
+    actorsName: "Will\nSmith",
     imageUrl: require("../assets/mockImages/castImages/Will_Smith.jpeg")
   },
   {
     id: 4,
-    actorsName: "Robert Downey Jr.",
+    actorsName: "Robert\nDowney Jr.",
     imageUrl: require("../assets/mockImages/castImages/Robert_Downey_Jr.jpeg")
   }
 ];

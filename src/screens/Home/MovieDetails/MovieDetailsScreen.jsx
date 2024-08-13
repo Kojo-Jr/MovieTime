@@ -180,7 +180,13 @@ const MovieDetailsScreen = ({ route }) => {
                   <View>
                     <Text style={styles.castTitleText}>Cast</Text>
                   </View>
-                  <View style={{ flexDirection: "row", flexGrow: 1 }}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      flexGrow: 1,
+                      height: wp("30")
+                    }}
+                  >
                     <FlashList
                       data={castImages}
                       renderItem={({ item }) => {
@@ -451,7 +457,7 @@ const styles = StyleSheet.create({
   },
   castImagesContainer: {
     flexDirection: "row",
-    gap: wp(3)
+    marginRight: wp(3)
   },
   imageContent: {
     justifyContent: "center",
