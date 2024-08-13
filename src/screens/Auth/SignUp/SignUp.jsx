@@ -94,9 +94,6 @@ const SignUp = () => {
             secureTextEntry={true}
           />
         </View>
-
-        {/* Confirm Password */}
-        {/* {renderConfirmPassword()} */}
       </View>
 
       {/* Forgot Password */}
