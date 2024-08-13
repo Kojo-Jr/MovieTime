@@ -142,23 +142,6 @@ const SignUp = () => {
           <Text style={styles.signUpLinkText}>SIGN UP</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Skip */}
-      {/* <TouchableOpacity
-        style={{
-          marginTop: wp("3"),
-          alignSelf: "flex-end",
-          padding: wp("2"),
-          right: wp("3"),
-          backgroundColor: "#003478",
-          width: wp("15"),
-          alignItems: "center",
-          borderRadius: wp("1")
-        }}
-        onPress={handleSkip}
-      >
-        <Text style={{ color: "#fff", fontSize: wp("4") }}>Skip</Text>
-      </TouchableOpacity> */}
     </View>
   );
 };
