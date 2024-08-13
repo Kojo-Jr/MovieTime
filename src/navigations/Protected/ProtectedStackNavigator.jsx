@@ -5,7 +5,7 @@ import DrawerNavigator from "../DrawerNavigator/DrawerNavigator";
 const ProtectedStack = createNativeStackNavigator();
 const ProtectedStackNavigator = () => {
   return (
-    <ProtectedStack.Navigator initialRouteName="HomeStack">
+    <ProtectedStack.Navigator initialRouteName="DrawerNavigator">
       <ProtectedStack.Screen
         name="DrawerNavigator"
         component={DrawerNavigator}

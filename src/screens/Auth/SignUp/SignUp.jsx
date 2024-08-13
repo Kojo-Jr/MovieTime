@@ -1,4 +1,12 @@
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Alert
+} from "react-native";
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
@@ -8,154 +16,118 @@ import { useNavigation } from "@react-navigation/native";
 const SignUp = () => {
   const navigation = useNavigation();
 
-  const handleSkip = () => {
-    navigation.navigate("ProtectedStack", {
-      screen: "DrawerNavigator",
-      params: { screen: "Home" } // Use params to specify the target screen within the DrawerNavigator
-    });
+  // States
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [user, setUser] = React.useState(false);
+
+  const handleEmailChange = (text) => {
+    setEmail(text);
+  };
+
+  const handlePasswordChange = (text) => {
+    setPassword(text);
+  };
+
+  // Sign Up Function
+  const handleSignUp = () => {
+    if (email === "" || password === "") {
+      Alert.alert("Error", "Please fill all the fields");
+    } else {
+      Alert.alert("Success", "Account created successfully");
+      setUser(true);
+      // Navigate to ProtectedStack, which includes the DrawerNavigator
+      navigation.navigate("ProtectedStack", {
+        screen: "HomeStack"
+      });
+    }
   };
 
   return (
-    <View style={{ flex: 1, padding: wp("3"), backgroundColor: "white" }}>
+    <View style={styles.container}>
       <StatusBar style="auto" />
-      <View
-        style={{
-          marginTop: wp("30"),
-          alignItems: "center",
-          gap: wp("2")
-        }}
-      >
+      <View style={styles.header}>
         <View>
-          <Text
-            style={{
-              fontSize: wp("6"),
-              fontWeight: "600",
-              fontFamily: "Roboto"
-            }}
-          >
-            Welcome to Movietime!
-          </Text>
+          <Text style={styles.headerTitle}>Welcome to Movietime!</Text>
         </View>
         <View>
-          <Text style={{ fontFamily: "Roboto", color: "gray" }}>
+          <Text style={styles.headerText}>
             Your personal guide to the world of Cinema
           </Text>
         </View>
       </View>
 
       {/* Sign Up Details */}
-      <View style={{ marginTop: wp("20"), alignItems: "center", gap: wp("5") }}>
+      <View style={styles.signUpContainer}>
         {/* Email */}
         <View>
           <TextInput
-            style={{
-              backgroundColor: "#FAFAFA",
-              padding: wp("3"),
-              width: wp("80"),
-              borderRadius: wp("2")
-            }}
+            style={styles.emailTextInput}
+            value={email}
+            onChangeText={handleEmailChange}
             placeholder="Email, phone number or username"
             placeholderTextColor={"gray"}
+            keyboardType="email-address"
           />
         </View>
 
         {/* password */}
         <View>
           <TextInput
-            style={{
-              backgroundColor: "#FAFAFA",
-              padding: wp("3"),
-              width: wp("80"),
-              borderRadius: wp("2")
-            }}
+            style={styles.passwordTextInput}
+            value={password}
+            onChangeText={handlePasswordChange}
             placeholder="Password"
             placeholderTextColor={"gray"}
+            secureTextEntry={true}
           />
         </View>
+
+        {/* Confirm Password */}
+        {/* {renderConfirmPassword()} */}
       </View>
 
       {/* Forgot Password */}
-      <TouchableOpacity style={{ marginLeft: wp("8"), marginTop: wp("3") }}>
-        <Text style={{ color: "#77C8B2" }}>Forgot Password?</Text>
+      <TouchableOpacity style={styles.forgotPasswordContainer}>
+        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
       </TouchableOpacity>
 
       {/* Sign Up Button */}
       <TouchableOpacity
-        style={{
-          marginTop: wp("10"),
-          backgroundColor: "#FB5558",
-          width: wp("80"),
-          alignItems: "center",
-          alignSelf: "center",
-          borderRadius: wp("5")
-        }}
+        style={styles.signUpButtonContainer}
+        onPress={handleSignUp}
       >
-        <Text style={{ color: "#fff", padding: wp("4"), fontSize: wp("4") }}>
-          SIGN IN
-        </Text>
+        <Text style={styles.signUpButtonText}>SIGN IN</Text>
       </TouchableOpacity>
 
       {/* Alternative Sign Up Options */}
-      <View style={{ marginTop: wp("20"), alignItems: "center", gap: wp("7") }}>
+      <View style={styles.linksContainer}>
         <View>
-          <Text style={{ color: "gray" }}>or continue with</Text>
+          <Text style={styles.linkText}>or continue with</Text>
         </View>
         {/* Facebook Button  & HGoogle Button*/}
-        <View style={{ flexDirection: "row", gap: wp("5") }}>
-          <TouchableOpacity
-            style={{
-              width: wp("40"),
-              backgroundColor: "#003478",
-              borderRadius: wp("6"),
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: wp("3"),
-              gap: wp("2")
-            }}
-          >
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.facebookContainer}>
             <FontAwesome name="facebook" size={24} color="white" />
-            <Text style={{ color: "#fff" }}>Facebook</Text>
+            <Text style={styles.facebookButtonText}>Facebook</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              width: wp("40"),
-              backgroundColor: "#FAFAFA",
-              borderRadius: wp("6"),
-
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: wp("3"),
-              gap: wp("2")
-            }}
-          >
+          <TouchableOpacity style={styles.googleContainer}>
             <Image
-              style={{
-                width: wp("7"),
-                height: wp("7")
-              }}
+              style={styles.googleIcon}
               source={require("../../../../assets/mockImages/google-logo.png")}
             />
-            <Text style={{ color: "gray" }}>Google</Text>
+            <Text style={styles.googleButtonText}>Google</Text>
           </TouchableOpacity>
         </View>
       </View>
 
       {/* Already have an account? */}
-      <View
-        style={{
-          marginTop: wp("15"),
-          alignSelf: "center",
-          flexDirection: "row",
-          gap: wp("0.5")
-        }}
-      >
+      <View style={styles.alreadyHaveAccountContainer}>
         <View>
           <Text>Don't have an account?</Text>
         </View>
         <TouchableOpacity>
-          <Text style={{ color: "#77C8B2" }}>SIGN UP</Text>
+          <Text style={styles.signUpLinkText}>SIGN UP</Text>
         </TouchableOpacity>
       </View>
 
@@ -180,3 +152,113 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: wp("3"),
+    backgroundColor: "white"
+  },
+  header: {
+    marginTop: wp("30"),
+    alignItems: "center",
+    gap: wp("2")
+  },
+  headerTitle: {
+    fontSize: wp("6"),
+    fontWeight: "600",
+    fontFamily: "Roboto"
+  },
+  headerText: {
+    fontFamily: "Roboto",
+    color: "gray"
+  },
+  signUpContainer: {
+    marginTop: wp("20"),
+    alignItems: "center",
+    gap: wp("5")
+  },
+  emailTextInput: {
+    backgroundColor: "#FAFAFA",
+    padding: wp("3"),
+    width: wp("80"),
+    borderRadius: wp("2")
+  },
+  passwordTextInput: {
+    backgroundColor: "#FAFAFA",
+    padding: wp("3"),
+    width: wp("80"),
+    borderRadius: wp("2")
+  },
+  forgotPasswordContainer: {
+    marginLeft: wp("8"),
+    marginTop: wp("3")
+  },
+  forgotPasswordText: {
+    color: "#77C8B2"
+  },
+  signUpButtonContainer: {
+    marginTop: wp("10"),
+    backgroundColor: "#FB5558",
+    width: wp("80"),
+    alignItems: "center",
+    alignSelf: "center",
+    borderRadius: wp("5")
+  },
+  signUpButtonText: {
+    color: "#fff",
+    padding: wp("4"),
+    fontSize: wp("4")
+  },
+  linksContainer: {
+    marginTop: wp("20"),
+    alignItems: "center",
+    gap: wp("7")
+  },
+  linkText: {
+    color: "gray"
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    gap: wp("5")
+  },
+  facebookContainer: {
+    width: wp("40"),
+    backgroundColor: "#003478",
+    borderRadius: wp("6"),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: wp("3"),
+    gap: wp("2")
+  },
+  facebookButtonText: {
+    color: "#fff"
+  },
+  googleContainer: {
+    width: wp("40"),
+    backgroundColor: "#FAFAFA",
+    borderRadius: wp("6"),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: wp("3"),
+    gap: wp("2")
+  },
+  googleIcon: {
+    width: wp("7"),
+    height: wp("7")
+  },
+  googleButtonText: {
+    color: "gray"
+  },
+  alreadyHaveAccountContainer: {
+    marginTop: wp("15"),
+    alignSelf: "center",
+    flexDirection: "row",
+    gap: wp("0.5")
+  },
+  signUpLinkText: {
+    color: "#77C8B2"
+  }
+});

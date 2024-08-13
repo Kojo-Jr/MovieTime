@@ -6,7 +6,7 @@ import MovieDetailsScreen from "../../../screens/Home/MovieDetails/MovieDetailsS
 const HomeStack = createNativeStackNavigator();
 const HomeStackNavigator = () => {
   return (
-    <HomeStack.Navigator>
+    <HomeStack.Navigator initialRouteName="HomeScreen">
       <HomeStack.Screen
         name="HomeScreen"
         component={MainScreen}

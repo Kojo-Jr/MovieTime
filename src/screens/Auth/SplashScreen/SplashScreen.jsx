@@ -11,7 +11,7 @@ const SplashScreen = () => {
     // A timeout to navigate to the SignUp screen after 3 seconds
     const timer = setTimeout(() => {
       navigation.navigate("SignUpScreen");
-    }, 2000); // 3000ms = 3 seconds
+    }, 3000); // 3000ms = 3 seconds
 
     //  To Cleanup the timer when the component is unmounted
     return () => clearTimeout(timer);
