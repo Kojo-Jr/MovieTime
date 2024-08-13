@@ -12,14 +12,14 @@ import { StatusBar } from "expo-status-bar";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-
+import { useAuth } from "../../../context/AuthContext/AuthContext";
 const SignUp = () => {
   const navigation = useNavigation();
+  const { signIn } = useAuth();
 
   // States
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [user, setUser] = React.useState(false);
 
   const handleEmailChange = (text) => {
     setEmail(text);
@@ -35,11 +35,7 @@ const SignUp = () => {
       Alert.alert("Error", "Please fill all the fields");
     } else {
       Alert.alert("Success", "Account created successfully");
-      setUser(true);
-      // Navigate to ProtectedStack, which includes the DrawerNavigator
-      navigation.navigate("ProtectedStack", {
-        screen: "HomeStack"
-      });
+      signIn();
     }
   };
 
