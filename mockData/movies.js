@@ -61,6 +61,6 @@ export const castImages = [
   {
     id: 4,
     actorsName: "Robert Downey Jr.",
-    imageUrl: require("../assets/mockImages/castImages/Robert_Downey_Jr.jpg")
+    imageUrl: require("../assets/mockImages/castImages/Robert_Downey_Jr.jpeg")
   }
 ];

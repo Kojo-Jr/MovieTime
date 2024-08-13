@@ -16,6 +16,7 @@ import {
   image
 } from "../../../function/api/fetchPost";
 import { RecommendedCard } from "../../../components/Cards";
+import { castImages } from "../../../../mockData/movies";
 const MovieDetailsScreen = ({ route }) => {
   const navigation = useNavigation();
   const navigatetoHomeScreen = () => {
@@ -179,28 +180,25 @@ const MovieDetailsScreen = ({ route }) => {
                   <View>
                     <Text style={styles.castTitleText}>Cast</Text>
                   </View>
-                  <View style={styles.castImagesContainer}>
-                    <View style={styles.imageContent}>
-                      <Image style={styles.castImage} />
-                      <Text>Tom Cruise</Text>
-                    </View>
-                    <View style={styles.imageContent}>
-                      <Image style={styles.castImage} />
-                      <Text>Chris Hemsworth</Text>
-                    </View>
-                    <View style={styles.imageContent}>
-                      <Image style={styles.castImage} />
-                      <Text>Chris Evans</Text>
-                    </View>
-                    <View style={styles.imageContent}>
-                      <Image style={styles.castImage} />
-                      <Text>Scarlett Johannson</Text>
-                    </View>
-                    <View style={styles.imageContent}>
-                      <Image style={styles.castImage} />
-                      <Text>Robert Downey Jr.</Text>
-                    </View>
-                  </View>
+                  <FlashList
+                    data={castImages}
+                    renderItem={({ item }) => {
+                      return (
+                        <View style={styles.castImagesContainer}>
+                          <View style={styles.imageContent}>
+                            <Image
+                              style={styles.castImage}
+                              source={item.imageUrl}
+                            />
+                            <Text>{item.actorsName}</Text>
+                          </View>
+                        </View>
+                      );
+                    }}
+                    estimatedItemSize={100}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                  />
                 </View>
 
                 {/* Photo Gallery */}
@@ -439,7 +437,8 @@ const styles = StyleSheet.create({
     width: wp(20),
     height: wp(20),
     borderRadius: wp(20),
-    backgroundColor: "black"
+    backgroundColor: "black",
+    resizeMode: "cover"
   },
   castImagesContainer: {
     flexDirection: "row",
