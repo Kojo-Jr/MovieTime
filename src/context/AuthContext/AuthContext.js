@@ -4,12 +4,26 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const signIn = () => {
+    setLoading(true);
 
-  const signIn = () => setUser(true);
-  const signOut = () => setUser(false);
+    setTimeout(() => {
+      setUser(true);
+      setLoading(false);
+    }, 1000);
+  };
+  const signOut = () => {
+    setLoading(true);
+
+    setTimeout(() => {
+      setUser(false);
+      setLoading(false);
+    }, 1000);
+  };
 
   return (
-    <AuthContext.Provider value={{ user, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, loading, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

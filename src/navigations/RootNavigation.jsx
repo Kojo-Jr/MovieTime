@@ -4,11 +4,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import ProtectedStackNavigator from "./Protected/ProtectedStackNavigator";
 import AuthStackNavigator from "./Authentication/AuthStackNavigator";
 import { AuthProvider, useAuth } from "../context/AuthContext/AuthContext";
+import LoadingIndicator from "../components/LoadingIndicator/LoadingIndicator";
 
 const Stack = createNativeStackNavigator();
 
 const RootNavigationContent = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <Stack.Navigator>

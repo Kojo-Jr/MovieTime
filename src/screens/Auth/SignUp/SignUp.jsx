@@ -7,19 +7,19 @@ import {
   StyleSheet,
   Alert
 } from "react-native";
-import React from "react";
+import { React, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { FontAwesome } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../../context/AuthContext/AuthContext";
+import LocalLoading from "../../../components/LoadingIndicator/LocalLoading";
 const SignUp = () => {
-  const navigation = useNavigation();
   const { signIn } = useAuth();
+  const [localLoading, setLocalLoading] = useState(false);
 
   // States
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleEmailChange = (text) => {
     setEmail(text);
@@ -30,14 +30,30 @@ const SignUp = () => {
   };
 
   // Sign Up Function
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     if (email === "" || password === "") {
       Alert.alert("Error", "Please fill all the fields");
     } else {
-      Alert.alert("Success", "Account created successfully");
-      signIn();
+      setLocalLoading(true);
+      try {
+        //  make an API call to create the user
+        // use a timeout to simulate an API call
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        Alert.alert("Success", "Account created successfully");
+        signIn();
+      } catch (error) {
+        Alert.alert("Error", "Failed to create account");
+      } finally {
+        setLocalLoading(false);
+      }
     }
   };
+
+  // TODO: Local Loading
+  if (localLoading) {
+    return <LocalLoading />;
+  }
 
   return (
     <View style={styles.container}>
