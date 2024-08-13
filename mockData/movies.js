@@ -64,3 +64,22 @@ export const castImages = [
     imageUrl: require("../assets/mockImages/castImages/Robert_Downey_Jr.jpeg")
   }
 ];
+
+export const photos = [
+  {
+    id: 1,
+    imageUrl: require("../assets/mockImages/Photos/Avengers_Endgame.jpg")
+  },
+  {
+    id: 2,
+    imageUrl: require("../assets/mockImages/Photos/iron-man1-movie-screencaps.com-9396.jpg")
+  },
+  {
+    id: 3,
+    imageUrl: require("../assets/mockImages/Photos/Marvel Studios.jpg")
+  },
+  {
+    id: 4,
+    imageUrl: require("../assets/mockImages/Photos/Thanos.jpg")
+  }
+];

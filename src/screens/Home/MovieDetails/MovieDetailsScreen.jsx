@@ -16,7 +16,7 @@ import {
   image
 } from "../../../function/api/fetchPost";
 import { RecommendedCard } from "../../../components/Cards";
-import { castImages } from "../../../../mockData/movies";
+import { castImages, photos } from "../../../../mockData/movies";
 const MovieDetailsScreen = ({ route }) => {
   const navigation = useNavigation();
   const navigatetoHomeScreen = () => {
@@ -180,25 +180,27 @@ const MovieDetailsScreen = ({ route }) => {
                   <View>
                     <Text style={styles.castTitleText}>Cast</Text>
                   </View>
-                  <FlashList
-                    data={castImages}
-                    renderItem={({ item }) => {
-                      return (
-                        <View style={styles.castImagesContainer}>
-                          <View style={styles.imageContent}>
-                            <Image
-                              style={styles.castImage}
-                              source={item.imageUrl}
-                            />
-                            <Text>{item.actorsName}</Text>
+                  <View style={{ flexDirection: "row", flexGrow: 1 }}>
+                    <FlashList
+                      data={castImages}
+                      renderItem={({ item }) => {
+                        return (
+                          <View style={styles.castImagesContainer}>
+                            <View style={styles.imageContent}>
+                              <Image
+                                style={styles.castImage}
+                                source={item.imageUrl}
+                              />
+                              <Text>{item.actorsName}</Text>
+                            </View>
                           </View>
-                        </View>
-                      );
-                    }}
-                    estimatedItemSize={100}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                  />
+                        );
+                      }}
+                      estimatedItemSize={100}
+                      horizontal={true}
+                      showsHorizontalScrollIndicator={false}
+                    />
+                  </View>
                 </View>
 
                 {/* Photo Gallery */}
@@ -206,19 +208,23 @@ const MovieDetailsScreen = ({ route }) => {
                   <View>
                     <Text style={styles.photoGalleryTitleText}>Photo</Text>
                   </View>
-                  <View style={styles.photoGalleryImagesContainer}>
-                    <View>
-                      <Image style={styles.photo} />
-                    </View>
-                    <View>
-                      <Image style={styles.photo} />
-                    </View>
-                    <View>
-                      <Image style={styles.photo} />
-                    </View>
-                    <View>
-                      <Image style={styles.photo} />
-                    </View>
+                  <View style={{ flexDirection: "row", flexGrow: 1 }}>
+                    <FlashList
+                      data={photos}
+                      renderItem={({ item }) => {
+                        return (
+                          <View style={styles.photoGalleryImagesContainer}>
+                            <Image
+                              style={styles.photo}
+                              source={item.imageUrl}
+                            />
+                          </View>
+                        );
+                      }}
+                      estimatedItemSize={100}
+                      horizontal={true}
+                      showsHorizontalScrollIndicator={false}
+                    />
                   </View>
                 </View>
 
@@ -281,6 +287,9 @@ const MovieDetailsScreen = ({ route }) => {
                         borderRadius: wp(20),
                         backgroundColor: "black",
                         marginTop: wp(3)
+                      }}
+                      source={{
+                        uri: "https://cdn.britannica.com/59/182359-050-C6F38CA3/Scarlett-Johansson-Natasha-Romanoff-Avengers-Age-of.jpg"
                       }}
                     />
                   </View>
@@ -459,7 +468,7 @@ const styles = StyleSheet.create({
   },
   photoGalleryImagesContainer: {
     flexDirection: "row",
-    gap: wp(3)
+    marginRight: wp(3)
   },
   photo: {
     width: wp(45),
