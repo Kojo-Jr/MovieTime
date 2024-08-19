@@ -41,6 +41,7 @@ const MovieSection = ({ title, data, cardType, navigationText }) => {
             imageUrl={image(item.poster_path)}
             movieTitle={item.title}
             overview={item.overview}
+            vote_average={item.vote_average}
           />
         );
       case "ComingSoon":
@@ -49,6 +50,7 @@ const MovieSection = ({ title, data, cardType, navigationText }) => {
             imageUrl={image(item.poster_path)}
             movieTitle={item.title}
             overview={item.overview}
+            vote_average={item.vote_average}
           />
         );
       case "NowPlaying":
@@ -57,6 +59,7 @@ const MovieSection = ({ title, data, cardType, navigationText }) => {
             imageUrl={image(item.poster_path)}
             movieTitle={item.title}
             overview={item.overview}
+            vote_average={item.vote_average}
           />
         );
       case "Horror":
@@ -65,6 +68,7 @@ const MovieSection = ({ title, data, cardType, navigationText }) => {
             imageUrl={image(item.poster_path)}
             movieTitle={item.title}
             overview={item.overview}
+            vote_average={item.vote_average}
           />
         );
       case "Comedy":
@@ -73,6 +77,7 @@ const MovieSection = ({ title, data, cardType, navigationText }) => {
             imageUrl={image(item.poster_path)}
             movieTitle={item.title}
             overview={item.overview}
+            vote_average={item.vote_average}
           />
         );
       default:

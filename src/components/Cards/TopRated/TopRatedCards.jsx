@@ -4,7 +4,7 @@ import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 // import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const TopRated = ({ imageUrl, movieTitle, overview }) => {
+const TopRated = ({ imageUrl, movieTitle, overview, vote_overage }) => {
   const navigation = useNavigation();
 
   const truncateTitle = (title, maxLength) => {
@@ -12,13 +12,16 @@ const TopRated = ({ imageUrl, movieTitle, overview }) => {
     return `${title.substring(0, maxLength)}...`;
   };
 
+  const roundAverage = (vote_average) => {
+    return vote_average.toFixed(1);
+  };
   return (
     <View style={styles.popularMoviesCardContainer}>
       <View>
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("MovieDetailScreen", {
-              params: { imageUrl, movieTitle, overview }
+              params: { imageUrl, movieTitle, overview, vote_overage }
             })
           }
         >
@@ -38,6 +41,7 @@ const TopRated = ({ imageUrl, movieTitle, overview }) => {
       </View>
       <View style={{ display: "none" }}>
         <Text>{overview}</Text>
+        <Text>{vote_overage}</Text>
       </View>
     </View>
   );

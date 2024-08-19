@@ -3,7 +3,7 @@ import React from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/native";
 
-const ComedyCard = ({ imageUrl, movieTitle, overview }) => {
+const ComedyCard = ({ imageUrl, movieTitle, overview, vote_overage }) => {
   const navigation = useNavigation();
 
   const truncateTitle = (title, maxLength) => {
@@ -17,7 +17,7 @@ const ComedyCard = ({ imageUrl, movieTitle, overview }) => {
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("MovieDetailScreen", {
-              params: { imageUrl, movieTitle, overview }
+              params: { imageUrl, movieTitle, overview, vote_overage }
             })
           }
         >
@@ -37,6 +37,7 @@ const ComedyCard = ({ imageUrl, movieTitle, overview }) => {
       </View>
       <View style={{ display: "none" }}>
         <Text>{overview}</Text>
+        <Text>{vote_overage}</Text>
       </View>
     </View>
   );
