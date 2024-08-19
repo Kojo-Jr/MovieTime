@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet, StatusBar } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { NavigationHeader } from "../../components/Headers";
 import { useNavigation } from "@react-navigation/native";
