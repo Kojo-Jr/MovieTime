@@ -8,7 +8,7 @@ const Carousel = () => {
       <TouchableOpacity>
         <Image
           style={styles.carouselImageCard}
-          source={require("../../../../assets/mockImages/stranger-things.jpg")} //require("./assets/mockImages/stranger-things.jpg")}
+          source={require("../../../../assets/mockImages/MovieCards/stranger-things.jpg")} //require("./assets/mockImages/stranger-things.jpg")}
         />
       </TouchableOpacity>
     </View>

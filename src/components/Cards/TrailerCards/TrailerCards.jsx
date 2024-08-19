@@ -6,11 +6,13 @@ import { useNavigation } from "@react-navigation/native";
 const TrailerCards = ({ imageUrl, title, overview }) => {
   const navigation = useNavigation();
 
-  const truncateTitle = (title, maxLength) => {
-    if (title.length <= maxLength) return title;
-    return `${title.substring(0, maxLength)}...`;
+  const truncateTitle = function (title, maxLength) {
+    if (title.length > maxLength) {
+      return title.substring(0, maxLength) + "...";
+    } else {
+      return title;
+    }
   };
-
   return (
     <View style={styles.trailerMoviesCardContainer}>
       <View>
