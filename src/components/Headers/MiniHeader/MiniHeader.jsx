@@ -2,13 +2,13 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import React from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
-const MiniHeader = ({ title, navigationText }) => {
+const MiniHeader = ({ title, navigationText, handleNavigation }) => {
   return (
     <View style={styles.popularMoviesHeader}>
       <View>
         <Text style={styles.popularMovieHeaderTitle}>{title}</Text>
       </View>
-      <Pressable>
+      <Pressable onPress={handleNavigation}>
         <Text style={styles.popularMovieHeaderNavigationText}>
           {navigationText}
         </Text>

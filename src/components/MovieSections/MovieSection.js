@@ -13,8 +13,14 @@ import {
 } from "../Cards";
 import { MiniHeader } from "../Headers";
 import { image } from "../../function/api/fetchPost";
+import { useNavigation } from "@react-navigation/native";
 
 const MovieSection = ({ title, data, cardType, navigationText }) => {
+  const navigation = useNavigation();
+
+  const showAllMovies = () => {
+    navigation.navigate("AllMoviesScreen");
+  };
   const renderCard = (item) => {
     switch (cardType) {
       case "Popular":
@@ -87,7 +93,11 @@ const MovieSection = ({ title, data, cardType, navigationText }) => {
 
   return (
     <View>
-      <MiniHeader title={title} navigationText={navigationText} />
+      <MiniHeader
+        title={title}
+        navigationText={navigationText}
+        handleNavigation={showAllMovies}
+      />
       <FlashList
         data={data}
         renderItem={({ item }) => renderCard(item)}
