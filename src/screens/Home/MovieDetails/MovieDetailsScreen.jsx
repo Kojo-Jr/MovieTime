@@ -1,6 +1,7 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { MiniHeader, NavigationHeader } from "../../../components/Headers";
 import {
@@ -17,6 +18,7 @@ import {
 } from "../../../function/api/fetchPost";
 import { RecommendedCard } from "../../../components/Cards";
 import { castImages, photos } from "../../../../mockData/movies";
+
 const MovieDetailsScreen = ({ route }) => {
   const navigation = useNavigation();
   const navigatetoHomeScreen = () => {
@@ -24,10 +26,25 @@ const MovieDetailsScreen = ({ route }) => {
   };
 
   const [recommended, setRecommended] = useState([]);
+  const [isFavourite, setIsFavourite] = useState(false);
 
   useEffect(() => {
     getMoviesData();
+    loadFavouriteStatus(); //load favourite status when the components mounts
   }, []);
+
+  const loadFavouriteStatus = async () => {
+    try {
+      const favouriteMovie = await AsyncStorage.getItem(
+        `favorite_${movieTitle}`
+      );
+      if (favouriteMovie !== null) {
+        setIsFavourite(true);
+      }
+    } catch (error) {
+      console.log("Error loading favourite status: ", error);
+    }
+  };
 
   const getMoviesData = async () => {
     try {
@@ -38,6 +55,30 @@ const MovieDetailsScreen = ({ route }) => {
       }
     } catch (error) {
       console.log("Error fetching recommended movie data: ", error);
+    }
+  };
+
+  const toggleFavourite = async () => {
+    try {
+      const newStatus = !isFavourite;
+      setIsFavourite(newStatus);
+      if (newStatus) {
+        // Save the movie details
+        await AsyncStorage.setItem(
+          `favorite_${movieTitle}`,
+          JSON.stringify({
+            imageUrl,
+            movieTitle,
+            vote_average,
+            overview
+          })
+        );
+      } else {
+        // Remove the movie from favorites
+        await AsyncStorage.removeItem(`favorite_${movieTitle}`);
+      }
+    } catch (error) {
+      console.log("Error saving favourite status: ", error);
     }
   };
 
@@ -66,7 +107,12 @@ const MovieDetailsScreen = ({ route }) => {
                       <FontAwesome name="angle-left" size={32} color="white" />
                     }
                     iconComponent2={
-                      <Ionicons name="heart-outline" size={32} color="white" />
+                      <Ionicons
+                        name={isFavourite ? "heart" : "heart-outline"}
+                        size={32}
+                        color={isFavourite ? "red" : "white"}
+                        onPress={toggleFavourite}
+                      />
                     }
                     iconComponent3={
                       <MaterialCommunityIcons

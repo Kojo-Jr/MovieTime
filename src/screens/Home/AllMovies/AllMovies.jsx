@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import { React, useEffect } from "react";
 import { NavigationHeader } from "../../../components/Headers";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -9,11 +9,21 @@ import {
   MaterialCommunityIcons
 } from "@expo/vector-icons";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-export default function AllMovies() {
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { FlashList } from "@shopify/flash-list";
+
+export default function AllMovies({ route }) {
   const navigation = useNavigation();
   const goBack = () => {
     navigation.navigate("HomeScreen");
   };
+
+  const { movies = [] } = route.params.params || {}; // Added fallback for movies
+
+  // Log the movies to ensure data is correctly passed
+  useEffect(() => {
+    // console.log("Movies passed to AllMovies:", movies);
+  }, [movies]);
 
   return (
     <View style={styles.container}>
@@ -33,6 +43,30 @@ export default function AllMovies() {
         }
         headerTitleText={"Movies"}
       />
+
+      <View style={{ flexGrow: 1 }}>
+        <FlashList
+          data={movies}
+          renderItem={({ item }) => (
+            <View style={styles.movieListContainer}>
+              <View style={styles.movieCard}>
+                <TouchableOpacity>
+                  <Image
+                    style={styles.movieImage}
+                    source={{ uri: item.imageUrl }}
+                    resizeMode="cover"
+                  />
+                </TouchableOpacity>
+                <View>
+                  <Text style={styles.movieTitle}>{item.movieTitle}</Text>
+                </View>
+              </View>
+            </View>
+          )}
+          estimatedItemSize={200}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
     </View>
   );
 }
@@ -42,5 +76,24 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: wp("4")
+  },
+  movieListContainer: {
+    marginTop: wp(2)
+  },
+  movieCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: wp("4") // Added margin bottom to space out movie cards
+  },
+  movieImage: {
+    width: 100,
+    height: 60,
+    borderRadius: 12,
+    marginRight: 12,
+    backgroundColor: "blue"
+  },
+  movieTitle: {
+    fontSize: wp(5),
+    fontWeight: "bold"
   }
 });

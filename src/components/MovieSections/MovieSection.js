@@ -19,7 +19,10 @@ const MovieSection = ({ title, data, cardType, navigationText }) => {
   const navigation = useNavigation();
 
   const showAllMovies = () => {
-    navigation.navigate("AllMoviesScreen");
+    // Pass the entire data array when navigating
+    navigation.navigate("AllMoviesScreen", {
+      params: { movies: data }
+    });
   };
   const renderCard = (item) => {
     switch (cardType) {
