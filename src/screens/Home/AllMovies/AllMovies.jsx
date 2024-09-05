@@ -19,8 +19,8 @@ export default function AllMovies({ route }) {
     navigation.navigate("HomeScreen");
   };
 
-  const navigatetoMovieDetailsScreen = (movie) => {
-    navigation.navigate("MovieDetailScreen", { params: { movie } });
+  const navigatetoMovieDetailsScreen = (movies) => {
+    navigation.navigate("MovieDetailScreen", { params: { movies } });
   };
 
   const truncateTitle = (title, maxLength) => {
@@ -68,9 +68,7 @@ export default function AllMovies({ route }) {
                   />
                 </TouchableOpacity>
                 <View>
-                  <Text style={styles.movieTitle}>
-                    {truncateTitle(item.title)}
-                  </Text>
+                  <Text style={styles.movieTitle}>{item.title}</Text>
                 </View>
               </View>
             </View>
