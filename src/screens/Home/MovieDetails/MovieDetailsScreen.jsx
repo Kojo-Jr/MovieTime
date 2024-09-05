@@ -83,6 +83,7 @@ const MovieDetailsScreen = ({ route }) => {
   };
 
   const truncateTitle = (title, maxLength) => {
+    if (!title || typeof title !== "string") return ""; // Handle undefined or non-string values
     if (title.length <= maxLength) return title;
     return `${title.substring(0, maxLength)}...`;
   };

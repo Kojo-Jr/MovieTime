@@ -11,11 +11,21 @@ import {
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FlashList } from "@shopify/flash-list";
+import { image } from "../../../function/api/fetchPost";
 
 export default function AllMovies({ route }) {
   const navigation = useNavigation();
   const goBack = () => {
     navigation.navigate("HomeScreen");
+  };
+
+  const navigatetoMovieDetailsScreen = (movie) => {
+    navigation.navigate("MovieDetailScreen", { params: { movie } });
+  };
+
+  const truncateTitle = (title, maxLength) => {
+    if (title.length <= maxLength) return title;
+    return `${title.substring(0, maxLength)}...`;
   };
 
   const { movies = [] } = route.params.params || {}; // Added fallback for movies
@@ -50,15 +60,17 @@ export default function AllMovies({ route }) {
           renderItem={({ item }) => (
             <View style={styles.movieListContainer}>
               <View style={styles.movieCard}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={navigatetoMovieDetailsScreen}>
                   <Image
                     style={styles.movieImage}
-                    source={{ uri: item.imageUrl }}
+                    source={{ uri: image(item.poster_path) }}
                     resizeMode="cover"
                   />
                 </TouchableOpacity>
                 <View>
-                  <Text style={styles.movieTitle}>{item.movieTitle}</Text>
+                  <Text style={styles.movieTitle}>
+                    {truncateTitle(item.title)}
+                  </Text>
                 </View>
               </View>
             </View>
