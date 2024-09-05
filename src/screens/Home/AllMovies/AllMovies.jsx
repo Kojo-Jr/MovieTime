@@ -19,8 +19,8 @@ export default function AllMovies({ route }) {
     navigation.navigate("HomeScreen");
   };
 
-  const navigatetoMovieDetailsScreen = (movies) => {
-    navigation.navigate("MovieDetailScreen", { params: { movies } });
+  const navigateToMovieDetails = (movie) => {
+    navigation.navigate("MovieDetailScreen", { movie });
   };
 
   const truncateTitle = (title, maxLength) => {
@@ -59,17 +59,20 @@ export default function AllMovies({ route }) {
           data={movies}
           renderItem={({ item }) => (
             <View style={styles.movieListContainer}>
-              <View style={styles.movieCard}>
-                <TouchableOpacity onPress={navigatetoMovieDetailsScreen}>
+              <View>
+                <TouchableOpacity
+                  style={styles.movieCard}
+                  onPress={() => navigateToMovieDetails(item)}
+                >
                   <Image
                     style={styles.movieImage}
                     source={{ uri: image(item.poster_path) }}
                     resizeMode="cover"
                   />
+                  <Text style={styles.movieTitle}>
+                    {truncateTitle(item.title, 20)}
+                  </Text>
                 </TouchableOpacity>
-                <View>
-                  <Text style={styles.movieTitle}>{item.title}</Text>
-                </View>
               </View>
             </View>
           )}
@@ -99,8 +102,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 60,
     borderRadius: 12,
-    marginRight: 12,
-    backgroundColor: "blue"
+    marginRight: 12
   },
   movieTitle: {
     fontSize: wp(5),

@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import {
@@ -24,6 +24,7 @@ const MovieSection = ({ title, data, cardType, navigationText }) => {
       params: { movies: data }
     });
   };
+
   const renderCard = (item) => {
     switch (cardType) {
       case "Popular":
@@ -95,7 +96,7 @@ const MovieSection = ({ title, data, cardType, navigationText }) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <MiniHeader
         title={title}
         navigationText={navigationText}
@@ -112,5 +113,11 @@ const MovieSection = ({ title, data, cardType, navigationText }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1 // Ensures that the parent view takes available space
+  }
+});
 
 export default MovieSection;
