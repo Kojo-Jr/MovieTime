@@ -67,7 +67,7 @@ export default function AllMovies({ route }) {
                   <Image
                     style={styles.movieImage}
                     source={{ uri: image(item.poster_path) }}
-                    resizeMode="contain"
+                    resizeMode="cover"
                   />
                   <Text style={styles.movieTitle}>
                     {truncateTitle(item.title, 20)}
