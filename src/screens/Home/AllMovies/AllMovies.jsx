@@ -20,7 +20,7 @@ export default function AllMovies({ route }) {
   };
 
   const navigateToMovieDetails = (movie) => {
-    navigation.navigate("MovieDetailScreen", { movie });
+    navigation.navigate("MovieDetailScreen", { params: { movie } });
   };
 
   const truncateTitle = (title, maxLength) => {
@@ -62,7 +62,7 @@ export default function AllMovies({ route }) {
               <View>
                 <TouchableOpacity
                   style={styles.movieCard}
-                  onPress={() => navigateToMovieDetails(item)}
+                  onPress={navigateToMovieDetails}
                 >
                   <Image
                     style={styles.movieImage}

@@ -54,7 +54,7 @@ const MainScreen = () => {
         }
         headerTitleText={"movietime"}
       />
-      <View style={{ flexGrow: 1, height: "100%" }}>
+      <View style={{ flexGrow: 1, height: "auto" }}>
         <FlashList
           ListHeaderComponent={() => {
             return (
