@@ -9,7 +9,8 @@ import {
   ComingSoonCard,
   NowPlayingCard,
   HorrorCard,
-  ComedyCard
+  ComedyCard,
+  ActionCard
 } from "../Cards";
 import { MiniHeader } from "../Headers";
 import { image } from "../../function/api/fetchPost";
@@ -84,6 +85,15 @@ const MovieSection = ({ title, data, cardType, navigationText }) => {
       case "Comedy":
         return (
           <ComedyCard
+            imageUrl={image(item.poster_path)}
+            movieTitle={item.title}
+            overview={item.overview}
+            vote_average={item.vote_average}
+          />
+        );
+      case "Action":
+        return (
+          <ActionCard
             imageUrl={image(item.poster_path)}
             movieTitle={item.title}
             overview={item.overview}

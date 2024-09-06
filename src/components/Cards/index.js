@@ -7,6 +7,7 @@ import RecommendedCard from "./RecommendedCards/RecommendedCard";
 import NowPlayingCard from "./NowPlayingCards/NowPlayingCard";
 import HorrorCard from "./HorrorCards/HorrorCard";
 import ComedyCard from "./ComedyCards/ComedyCard";
+import ActionCard from "./ActionCards/ActionCard";
 
 export {
   Carousel,
@@ -17,5 +18,6 @@ export {
   RecommendedCard,
   NowPlayingCard,
   HorrorCard,
-  ComedyCard
+  ComedyCard,
+  ActionCard
 };

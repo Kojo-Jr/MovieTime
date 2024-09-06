@@ -102,6 +102,12 @@ const MainScreen = () => {
                   cardType="Comedy"
                   navigationText="Show All"
                 />
+                <MovieSection
+                  title={"Action"}
+                  data={action}
+                  cardType="Action"
+                  navigationText="Show All"
+                />
               </View>
             );
           }}
