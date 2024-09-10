@@ -61,7 +61,7 @@ const MainScreen = () => {
               <View>
                 <Carousel />
                 <MovieSection
-                  title="Popular Movies"
+                  title="Most Popular Movies"
                   data={popular}
                   cardType="Popular"
                   navigationText="Show All"
