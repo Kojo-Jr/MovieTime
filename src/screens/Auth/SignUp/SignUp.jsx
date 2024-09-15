@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -5,41 +6,36 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
-  Alert
+  Alert,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
-import { React, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from "react-native-responsive-screen";
 import { FontAwesome } from "@expo/vector-icons";
 import { useAuth } from "../../../context/AuthContext/AuthContext";
 import LocalLoading from "../../../components/LoadingIndicator/LocalLoading";
+
 const SignUp = () => {
   const { signIn } = useAuth();
   const [localLoading, setLocalLoading] = useState(false);
-
-  // States
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleEmailChange = (text) => {
-    setEmail(text);
-  };
+  const handleEmailChange = (text) => setEmail(text);
+  const handlePasswordChange = (text) => setPassword(text);
 
-  const handlePasswordChange = (text) => {
-    setPassword(text);
-  };
-
-  // Sign Up Function
   const handleSignUp = async () => {
     if (email === "" || password === "") {
       Alert.alert("Error", "Please fill all the fields");
     } else {
       setLocalLoading(true);
       try {
-        //  make an API call to create the user
-        // use a timeout to simulate an API call
         await new Promise((resolve) => setTimeout(resolve, 1000));
-
         Alert.alert("Success", "Account created successfully");
         signIn();
       } catch (error) {
@@ -50,152 +46,136 @@ const SignUp = () => {
     }
   };
 
-  // TODO: Local Loading
   if (localLoading) {
     return <LocalLoading />;
   }
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <View style={styles.header}>
-        <View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <StatusBar style="auto" />
+        <View style={styles.header}>
           <Text style={styles.headerTitle}>Welcome to Movietime!</Text>
-        </View>
-        <View>
           <Text style={styles.headerText}>
             Your personal guide to the world of Cinema
           </Text>
         </View>
-      </View>
 
-      {/* Sign Up Details */}
-      <View style={styles.signUpContainer}>
-        {/* Email */}
-        <View>
+        <View style={styles.signUpContainer}>
           <TextInput
-            style={styles.emailTextInput}
+            style={styles.textInput}
             value={email}
             onChangeText={handleEmailChange}
             placeholder="Email, phone number or username"
-            placeholderTextColor={"gray"}
+            placeholderTextColor="gray"
             keyboardType="email-address"
           />
-        </View>
-
-        {/* password */}
-        <View>
           <TextInput
-            style={styles.passwordTextInput}
+            style={styles.textInput}
             value={password}
             onChangeText={handlePasswordChange}
             placeholder="Password"
-            placeholderTextColor={"gray"}
+            placeholderTextColor="gray"
             secureTextEntry={true}
           />
         </View>
-      </View>
 
-      {/* Forgot Password */}
-      <TouchableOpacity style={styles.forgotPasswordContainer}>
-        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-      </TouchableOpacity>
-
-      {/* Sign Up Button */}
-      <TouchableOpacity
-        style={styles.signUpButtonContainer}
-        onPress={handleSignUp}
-      >
-        <Text style={styles.signUpButtonText}>SIGN IN</Text>
-      </TouchableOpacity>
-
-      {/* Alternative Sign Up Options */}
-      <View style={styles.linksContainer}>
-        <View>
-          <Text style={styles.linkText}>or continue with</Text>
-        </View>
-        {/* Facebook Button  & HGoogle Button*/}
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.facebookContainer}>
-            <FontAwesome name="facebook" size={24} color="white" />
-            <Text style={styles.facebookButtonText}>Facebook</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.googleContainer}>
-            <Image
-              style={styles.googleIcon}
-              source={require("../../../../assets/mockImages/google-logo.png")}
-            />
-            <Text style={styles.googleButtonText}>Google</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Already have an account? */}
-      <View style={styles.alreadyHaveAccountContainer}>
-        <View>
-          <Text>Don't have an account?</Text>
-        </View>
-        <TouchableOpacity>
-          <Text style={styles.signUpLinkText}>SIGN UP</Text>
+        <TouchableOpacity style={styles.forgotPasswordContainer}>
+          <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
         </TouchableOpacity>
-      </View>
-    </View>
+
+        <TouchableOpacity
+          style={styles.signUpButtonContainer}
+          onPress={handleSignUp}
+        >
+          <Text style={styles.signUpButtonText}>SIGN IN</Text>
+        </TouchableOpacity>
+
+        <View style={styles.linksContainer}>
+          <Text style={styles.linkText}>or continue with</Text>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.socialButton}>
+              <FontAwesome name="facebook" size={wp("6")} color="white" />
+              <Text style={styles.facebookButtonText}>Facebook</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.socialButton, styles.googleButton]}
+            >
+              <Image
+                style={styles.googleIcon}
+                source={require("../../../../assets/mockImages/google-logo.png")}
+              />
+              <Text style={styles.googleButtonText}>Google</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.alreadyHaveAccountContainer}>
+          <Text>Don't have an account?</Text>
+          <TouchableOpacity>
+            <Text style={styles.signUpLinkText}>SIGN UP</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
-
-export default SignUp;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: wp("3"),
     backgroundColor: "white"
   },
+  scrollContainer: {
+    flexGrow: 1,
+    padding: wp("5"),
+    justifyContent: "center"
+  },
   header: {
-    marginTop: wp("30"),
     alignItems: "center",
-    gap: wp("2")
+    marginBottom: hp("5")
   },
   headerTitle: {
     fontSize: wp("6"),
     fontWeight: "600",
-    fontFamily: "Roboto"
+    fontFamily: "Roboto",
+    marginBottom: hp("1")
   },
   headerText: {
     fontFamily: "Roboto",
-    color: "gray"
+    color: "gray",
+    fontSize: wp("3.5")
   },
   signUpContainer: {
-    marginTop: wp("20"),
     alignItems: "center",
-    gap: wp("5")
+    marginBottom: hp("3")
   },
-  emailTextInput: {
+  textInput: {
     backgroundColor: "#FAFAFA",
     padding: wp("3"),
-    width: wp("80"),
-    borderRadius: wp("2")
-  },
-  passwordTextInput: {
-    backgroundColor: "#FAFAFA",
-    padding: wp("3"),
-    width: wp("80"),
-    borderRadius: wp("2")
+    width: wp("85"),
+    borderRadius: wp("2"),
+    marginBottom: hp("2"),
+    fontSize: wp("3.5")
   },
   forgotPasswordContainer: {
-    marginLeft: wp("8"),
-    marginTop: wp("3")
+    alignSelf: "flex-end",
+    marginBottom: hp("3")
   },
   forgotPasswordText: {
-    color: "#77C8B2"
+    color: "#77C8B2",
+    fontSize: wp("3.5")
   },
   signUpButtonContainer: {
-    marginTop: wp("10"),
     backgroundColor: "#FB5558",
-    width: wp("80"),
+    width: wp("85"),
     alignItems: "center",
     alignSelf: "center",
-    borderRadius: wp("5")
+    borderRadius: wp("5"),
+    marginBottom: hp("5")
   },
   signUpButtonText: {
     color: "#fff",
@@ -203,18 +183,20 @@ const styles = StyleSheet.create({
     fontSize: wp("4")
   },
   linksContainer: {
-    marginTop: wp("20"),
     alignItems: "center",
-    gap: wp("7")
+    marginBottom: hp("5")
   },
   linkText: {
-    color: "gray"
+    color: "gray",
+    marginBottom: hp("2"),
+    fontSize: wp("3.5")
   },
   buttonContainer: {
     flexDirection: "row",
-    gap: wp("5")
+    justifyContent: "center",
+    width: "100%"
   },
-  facebookContainer: {
+  socialButton: {
     width: wp("40"),
     backgroundColor: "#003478",
     borderRadius: wp("6"),
@@ -222,35 +204,34 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: wp("3"),
-    gap: wp("2")
+    marginHorizontal: wp("2")
+  },
+  googleButton: {
+    backgroundColor: "#FAFAFA"
   },
   facebookButtonText: {
-    color: "#fff"
-  },
-  googleContainer: {
-    width: wp("40"),
-    backgroundColor: "#FAFAFA",
-    borderRadius: wp("6"),
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: wp("3"),
-    gap: wp("2")
+    color: "#fff",
+    marginLeft: wp("2"),
+    fontSize: wp("3.5")
   },
   googleIcon: {
-    width: wp("7"),
-    height: wp("7")
+    width: wp("6"),
+    height: wp("6")
   },
   googleButtonText: {
-    color: "gray"
+    color: "gray",
+    marginLeft: wp("2"),
+    fontSize: wp("3.5")
   },
   alreadyHaveAccountContainer: {
-    marginTop: wp("15"),
     alignSelf: "center",
     flexDirection: "row",
-    gap: wp("0.5")
+    gap: wp("1")
   },
   signUpLinkText: {
-    color: "#77C8B2"
+    color: "#77C8B2",
+    fontSize: wp("3.5")
   }
 });
+
+export default SignUp;
