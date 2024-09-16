@@ -1,6 +1,6 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import {
   Ionicons,
   AntDesign,
@@ -35,8 +35,14 @@ const MainScreen = () => {
     navigation.openDrawer(); // This opens the drawer
   };
 
+  // Debugging to log out the container dimensions
+  const onLayout = (event) => {
+    const { width, height } = event.nativeEvent.layout;
+    // console.log(`Container dimensions: width = ${width}, height = ${height}`);s
+  };
+
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onLayout={onLayout}>
       <StatusBar style="auto" />
 
       <NavigationHeader
@@ -54,7 +60,7 @@ const MainScreen = () => {
         }
         headerTitleText={"movietime"}
       />
-      <View style={{ flex: 1 }}>
+      <View style={styles.listContainer}>
         <FlashList
           ListHeaderComponent={() => {
             return (
@@ -131,6 +137,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: wp("4")
+  },
+  listContainer: {
+    flex: 1, // Ensures the list takes up the remaining space
+    width: Dimensions.get("window").width // Explicitly sets the width
   },
   loadingContainer: {
     position: "absolute",
