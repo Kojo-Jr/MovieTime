@@ -98,7 +98,7 @@ const FavouriteScreen = () => {
           <FlatList
             data={favourites}
             renderItem={renderFavouriteItem}
-            keyExtractor={(item) => item.movieTitle}
+            keyExtractor={(item, index) => item.id || item.movieTitle + index} // Use a unique key, fallback to index
             showsVerticalScrollIndicator={false}
           />
         )}
