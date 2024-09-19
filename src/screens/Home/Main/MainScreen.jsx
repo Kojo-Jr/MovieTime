@@ -6,7 +6,6 @@ import {
   AntDesign,
   MaterialCommunityIcons
 } from "@expo/vector-icons";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { FlashList } from "@shopify/flash-list";
 import { Carousel } from "../../../../src/components/Cards"; // Adjust the import path if necessary
 import { NavigationHeader } from "../../../../src/components/Headers"; // Adjust the import path if necessary

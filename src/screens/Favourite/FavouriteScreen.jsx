@@ -10,12 +10,13 @@ import {
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationHeader } from "../../components/Headers";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import {
   Ionicons,
   AntDesign,
   MaterialCommunityIcons
 } from "@expo/vector-icons";
+import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator";
 
 const FavouriteScreen = () => {
   const [favourites, setFavourites] = useState([]);
@@ -69,6 +70,26 @@ const FavouriteScreen = () => {
       <Text style={styles.favouriteTitle}>{item.movieTitle}</Text>
     </TouchableOpacity>
   );
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setIsLoading(true); // Reset loading state each time the screen is focused
+
+      const timer = setTimeout(() => {
+        setIsLoading(false); // Set loading to false when data is ready
+      });
+
+      return () => clearTimeout(timer);
+    }, [])
+  );
+
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <LoadingIndicator />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -130,6 +151,15 @@ const styles = StyleSheet.create({
   favouriteTitle: {
     fontSize: 16,
     fontWeight: "bold"
+  },
+  loadingContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 
