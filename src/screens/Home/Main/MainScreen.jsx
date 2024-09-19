@@ -38,7 +38,7 @@ const MainScreen = () => {
   // Debugging to log out the container dimensions
   const onLayout = (event) => {
     const { width, height } = event.nativeEvent.layout;
-    console.log(`Container dimensions: width = ${width}, height = ${height}`);
+    // console.log(`Container dimensions: width = ${width}, height = ${height}`);
   };
 
   return (
