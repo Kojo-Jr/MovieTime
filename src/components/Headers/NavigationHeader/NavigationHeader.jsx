@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     marginTop: wp("8"),
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    padding: wp(2)
   },
   headerTitleContainer: {
     left: wp("5")

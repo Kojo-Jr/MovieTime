@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
     marginTop: wp("5"),
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    padding: wp(3)
   },
   popularMovieHeaderTitle: {
     fontSize: wp("5"),

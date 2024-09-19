@@ -49,7 +49,7 @@ const MainScreen = () => {
         iconComponent={
           <Ionicons
             name="menu"
-            size={24}
+            size={30}
             color={"black"}
             onPress={openDrawer}
           />
@@ -135,8 +135,8 @@ export default MainScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    padding: wp("4")
+    backgroundColor: "#fff"
+    // padding: wp("2")
   },
   listContainer: {
     flex: 1, // Ensures the list takes up the remaining space
