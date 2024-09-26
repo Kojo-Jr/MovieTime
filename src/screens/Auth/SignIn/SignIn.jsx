@@ -18,56 +18,49 @@ import {
 } from "react-native-responsive-screen";
 import { FontAwesome } from "@expo/vector-icons";
 import { useAuth } from "../../../context/AuthContext/AuthContext";
-import LocalLoading from "../../../components/LoadingIndicator/LocalLoading";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../../firebase";
 import { useNavigation } from "@react-navigation/native";
+import { auth } from "../../../../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import LoginLoading from "../../../components/LoadingIndicator/LoginLoading";
 
-const SignUp = () => {
+const SignIn = () => {
   const navigation = useNavigation();
-  const handleSignIn = () => {
-    navigation.navigate("SignInScreen");
+  const handleSignUp = () => {
+    navigation.navigate("SignUpScreen");
   };
   const { signIn } = useAuth();
-  const [localLoading, setLocalLoading] = useState(false);
+  const [loginloading, setLoginLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleEmailChange = (text) => setEmail(text);
   const handlePasswordChange = (text) => setPassword(text);
 
-  const handleSignUp = async () => {
+  const handleSignIn = async () => {
     if (email === "" || password === "") {
       Alert.alert("Error", "Please fill all the fields");
     } else {
-      setLocalLoading(true);
+      setLoginLoading(true);
       try {
-        // Firebase sign-up process
-        const userCredential = await createUserWithEmailAndPassword(
+        const userCredential = await signInWithEmailAndPassword(
           auth,
           email,
           password
         );
+
         const user = userCredential.user;
-
-        // Simulating delay for UX improvement (optional)
         await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        Alert.alert("Success", "Account created successfully");
-
-        // Call the signIn function after successful account creation (if needed)
+        Alert.alert("Success", "Logged in successfully");
         signIn();
       } catch (error) {
-        console.error("Error creating account:", error);
-        Alert.alert("Error", error.message || "Failed to create account");
+        Alert.alert("Error", "Failed to sign in");
       } finally {
-        setLocalLoading(false);
+        setLoginLoading(false);
       }
     }
   };
-
-  if (localLoading) {
-    return <LocalLoading />;
+  if (loginloading) {
+    return <LoginLoading />;
   }
 
   return (
@@ -109,9 +102,9 @@ const SignUp = () => {
 
         <TouchableOpacity
           style={styles.signUpButtonContainer}
-          onPress={handleSignUp}
+          onPress={handleSignIn}
         >
-          <Text style={styles.signUpButtonText}>SIGN UP</Text>
+          <Text style={styles.signUpButtonText}>SIGN IN</Text>
         </TouchableOpacity>
 
         <View style={styles.linksContainer}>
@@ -134,9 +127,9 @@ const SignUp = () => {
         </View>
 
         <View style={styles.alreadyHaveAccountContainer}>
-          <Text>Already have an account?</Text>
-          <TouchableOpacity onPress={handleSignIn}>
-            <Text style={styles.signUpLinkText}>SIGN IN</Text>
+          <Text>Don't have an account?</Text>
+          <TouchableOpacity onPress={handleSignUp}>
+            <Text style={styles.signUpLinkText}>SIGN UP</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -144,7 +137,7 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -191,7 +184,7 @@ const styles = StyleSheet.create({
     fontSize: wp("3.5")
   },
   signUpButtonContainer: {
-    backgroundColor: "#FB5558",
+    backgroundColor: "green",
     width: wp("85"),
     alignItems: "center",
     alignSelf: "center",
