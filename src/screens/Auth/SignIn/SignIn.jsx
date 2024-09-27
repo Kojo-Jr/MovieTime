@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -35,6 +35,16 @@ const SignIn = () => {
 
   const handleEmailChange = (text) => setEmail(text);
   const handlePasswordChange = (text) => setPassword(text);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      // Check if user is logged in
+      if (user) {
+        signIn(); // If user is logged in, call signIn function
+      }
+    });
+    return unsubscribe; // Clean up the listener when the component unmounts
+  }, [signIn]); // Pass signIn function as a dependency
 
   const handleSignIn = async () => {
     if (email === "" || password === "") {
@@ -82,7 +92,7 @@ const SignIn = () => {
             style={styles.textInput}
             value={email}
             onChangeText={handleEmailChange}
-            placeholder="Email, phone number or username"
+            placeholder="Email"
             placeholderTextColor="gray"
             keyboardType="email-address"
           />

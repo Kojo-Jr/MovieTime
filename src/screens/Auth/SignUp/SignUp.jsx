@@ -89,7 +89,7 @@ const SignUp = () => {
             style={styles.textInput}
             value={email}
             onChangeText={handleEmailChange}
-            placeholder="Email, phone number or username"
+            placeholder="Email"
             placeholderTextColor="gray"
             keyboardType="email-address"
           />
