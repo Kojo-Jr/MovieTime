@@ -3,6 +3,7 @@ In this application, users can find out about the latest movies, popular films a
 # Technologies used
 - React Native
 - JavaScript
+- Firebase
 # Screenshot
 ![Screenshot_1723450693](https://github.com/user-attachments/assets/1ef9a6b3-bc14-4ec8-9edc-f7518646e4d6)
 ![Screenshot_1723450782](https://github.com/user-attachments/assets/6ec93dc5-2db6-4b99-933f-8a053ca67a14)
