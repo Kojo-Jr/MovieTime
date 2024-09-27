@@ -8,7 +8,11 @@ node_modules/
 dist/
 web-build/
 
-echo ".env" >> .gitignore
+.env
+config.js
+
+# Firebase
+# firebase.js
 
 # Native
 *.orig.*
